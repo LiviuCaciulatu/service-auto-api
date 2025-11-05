@@ -4,7 +4,7 @@ import type { ClientInput } from "../services/client-services";
 export async function getAllClients() {
     const result = await pool.query(
     `SELECT id, first_name, last_name, created_at
-    FROM getAllClients
+    FROM clients
     ORDER BY create_at DESC
     `);
     return result.rows;

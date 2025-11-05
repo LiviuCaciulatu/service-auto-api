@@ -1,6 +1,10 @@
-const fs = require("fs");
-const path = require("path");
-const { pool } = require("../db");
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+import { pool } from "../db";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 async function migrate() {
 try{
@@ -13,11 +17,11 @@ try{
 
     console.log("migration completed successfully");
     } catch (error) {
-    console.error("migration failed");
+    console.error("migration failed", error);
+    process.exitCode = 1
     } finally {
     await pool.end();
     }
-
 }
 
-migrate();
+migrate().then();
