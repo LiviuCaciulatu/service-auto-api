@@ -6,3 +6,20 @@ CREATE TABLE IF NOT EXISTS clients (
     last_name TEXT NOT NULL,
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
+
+CREATE TABLE IF NOT EXISTS client_id_cards (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    client_id UUID NOT NULL REFERENCES clients(id) ON DELETE CASCADE,
+
+    country TEXT NOT NULL,
+    serie TEXT NOT NULL,
+    number TEXT NOT NULL,
+    nationality TEXT NOT NULL,
+    cnp TEXT NOT NULL,
+    birth_place TEXT NOT NULL,
+    address TEXT NOT NULL,
+    issued_by TEXT NOT NULL,
+    validity TEXT NOT NULL,
+
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
