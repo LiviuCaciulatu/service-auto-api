@@ -2,62 +2,21 @@ import { pool } from "../db";
 import type { ClientInput } from "@/services/client-services";
 
 export async function getAllClients() {
-  const result = await pool.query(
-    `
-    SELECT
-      c.id,
-      c.first_name,
-      c.last_name,
-      c.created_at,
-
-      i.country,
-      i.serie,
-      i.number,
-      i.nationality,
-      i.cnp,
-      i.birth_place,
-      i.address,
-      i.issued_by,
-      i.validity
-
-    FROM clients c
-    JOIN client_id_cards i
-      ON i.client_id = c.id
-    ORDER BY c.created_at DESC
-    `
-  );
+  const result = await pool.query(`
+    SELECT *
+    FROM clients
+    ORDER BY created_at DESC
+  `);
 
   return result.rows;
 }
 
-export async function createClient(data: { first_name: string; last_name: string }) {
+export async function createClient(data) {
   const result = await pool.query(
     `
-      INSERT INTO clients (first_name, last_name)
-      VALUES ($1, $2)
-      RETURNING id, first_name, last_name, created_at
-    `,
-    [data.first_name, data.last_name]
-  );
-
-  return result.rows[0];
-}
-
-export async function createClientIdCard(clientId: string, data: {
-  country: string;
-  serie: string;
-  number: string;
-  nationality: string;
-  cnp: string;
-  birth_place: string;
-  address: string;
-  issued_by: string;
-  validity: string;
-}) {
-  const result = await pool.query(
-    `
-      INSERT INTO client_id_cards (
-        client_id,
+      INSERT INTO clients (
+        first_name,
+        last_name,
         country,
         serie,
         number,
@@ -68,11 +27,12 @@ export async function createClientIdCard(clientId: string, data: {
         issued_by,
         validity
       )
-      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
+      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
       RETURNING *
     `,
     [
-      clientId,
+      data.first_name,
+      data.last_name,
       data.country,
       data.serie,
       data.number,

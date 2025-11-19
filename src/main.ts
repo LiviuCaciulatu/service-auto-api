@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import { errorMiddleware } from "./middleware/error-middleware";
 import clientController from "./controllers/client-controller";
+import uploadRouter from "./controllers/upload-controller"
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ app.get("/health", (req, res) => {
     });
 
 app.use("/clients", clientController);
+app.use("/upload", uploadRouter);
 
 app.use(errorMiddleware);
 
