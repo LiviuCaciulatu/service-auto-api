@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import { errorMiddleware } from "./middleware/error-middleware";
 import clientController from "./controllers/client-controller";
-import uploadRouter from "./controllers/upload-controller"
+import uploadRouter from "./services/upload-services"
 
 dotenv.config();
 

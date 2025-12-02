@@ -1,5 +1,6 @@
-import multer from "multer";
+import { Router } from "express";
 import path from "path";
+import multer from "multer";
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -21,6 +22,5 @@ function fileFilter(req: any, file: Express.Multer.File, cb: multer.FileFilterCa
     }
 }
 
-const upload = multer({ storage, fileFilter });
+export const upload = multer({ storage, fileFilter });
 
-export default upload;

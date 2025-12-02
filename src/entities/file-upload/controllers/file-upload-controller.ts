@@ -1,5 +1,4 @@
 import { Router } from "express";
-import upload from "../utils/upload";
 import path from "path";
 
 const router = Router();
@@ -23,4 +22,3 @@ router.post("/upload-file", upload.single("file"), async (req, res, next) => {
 });
 
 export default router;
-
