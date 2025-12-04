@@ -1,25 +1,20 @@
-import { Router } from "express"
-import type { Request, Response, NextFunction } from "express";
-import * as clientServices from "@/services/client-services";
+import type {Request, Response} from "express";
+import {Router} from "express"
+import {asyncHandler} from "@/shared/async-handler";
+import * as clientServices from "@/entities/client/services/client-service";
+import * as types from "@/entities/client/types";
 
 const router = Router();
 
-router.get("/", async (req: Request, res: Response, next: NextFunction) => {
-    try {
-    const clients = await clientServices.getAllClients();
-    res.json(clients);
-    } catch (err) {
-    next(err);
-    }
-});
+router.get("/", asyncHandler(async (req: Request, res: Response) => {
+        const clients: Array<types.Client> = await clientServices.getAllClients;
+        res.json(clients);
+    })
+);
 
-router.post ('/', async (req: Request, res: Response, next: NextFunction) => {
-    try{
-    const newClient = await clientServices.createClient(req.body);
+router.post('/', async (req: Request, res: Response) => {
+    const newClient: types.Client = await clientServices.createClient(req.body);
     res.status(201).json(newClient);
-    } catch(err) {
-    next(err);
-    }
-});
+})
 
 export default router;

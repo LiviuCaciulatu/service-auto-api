@@ -5,7 +5,7 @@
   "main": "./dist/main.js",
   "scripts": {
     "dev": "tsx watch src/main.ts",
-    "build": "tsup src/main.ts --format esm --dts --sourcemap --out-dir dist --splitting",
+    "build": "tsup src/main.ts --format cjs --dts --sourcemap --out-dir dist --splitting",
     "start": "node dist/main.js",
     "migrate": "tsx src/scripts/migrate.ts",
     "typecheck": "tsc --noEmit",
@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/LiviuCaciulatu/service-auto-api#readme",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.943.0",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "multer": "^2.0.2",
@@ -33,6 +34,7 @@
   },
   "devDependencies": {
     "@types/express": "^5.0.5",
+    "@types/multer": "^2.0.0",
     "@types/node": "^24.10.0",
     "@types/pg": "^8.15.6",
     "ts-node-dev": "^2.0.0",
