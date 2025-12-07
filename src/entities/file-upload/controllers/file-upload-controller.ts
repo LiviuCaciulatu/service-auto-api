@@ -4,9 +4,10 @@ import {asyncHandler} from "@/shared/async-handler";
 import * as service from "@/entities/file-upload/services/file-upload-service";
 import * as types from "@/entities/file-upload/types";
 
-
+// creaza un router pentru file upload
 const router = Router();
 
+// creaza un endpoint pentru upload file
 router.post("/upload",
     service.upload.single("file"),
     asyncHandler(async (req: Request, res: Response) => {

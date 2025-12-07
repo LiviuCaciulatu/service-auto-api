@@ -1,9 +1,11 @@
 import {z} from "zod";
 import * as schemas from "@/entities/client/schemas/client-schema";
 
+// defineste tipurile schema-urilor
 export type ClientCreateRequestSchema = z.infer<typeof schemas.clientCreateRequestSchema>
 export type ClientUpdateRequestSchema = z.infer<typeof schemas.clientUpdateRequestSchema>
 
+// defineste tipul clientului
 export type Client = {
     id: string;
     first_name: string;

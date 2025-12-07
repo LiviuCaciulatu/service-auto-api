@@ -3,10 +3,12 @@ import * as clientRepository from "@/entities/client/repositories/client-reposit
 import * as schemas from "@/entities/client/schemas/client-schema";
 import * as types from "@/entities/client/types";
 
+// cheama get all clients din client-repository
 export async function getAllClients(): Promise<Array<types.Client>> {
     return await clientRepository.getAllClients();
 }
 
+// cheama create client din client-repository
 export async function createClient(data: types.ClientCreateRequestSchema): Promise<types.Client> {
     try {
         const parsed = schemas.clientCreateRequestSchema.parse(data);

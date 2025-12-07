@@ -4,8 +4,10 @@ import {PutObjectCommand, S3Client} from "@aws-sdk/client-s3";
 import * as config from "@/integrations/aws/config/aws-config";
 import * as types from "@/integrations/aws/types";
 
+// creaza un client S3 pentru a trimite fiecare upload la AWS
 const s3Client = new S3Client(config.AWS_BASE_CONFIG);
 
+// pune fisierul pe s3 si iti creaza un link pentru a-l descarca
 export async function uploadToS3(input: types.S3UploadInput): Promise<types.S3UploadResult> {
     const ext = path.extname(input.originalName).toLocaleLowerCase()
     const prefix = input.prefix ?? "uploads"

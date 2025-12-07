@@ -1,6 +1,7 @@
 import {z} from "zod";
 import {asyncHandler} from "@/shared/async-handler";
 
+// defineste schema pentru client
 export const clientCreateRequestSchema = z.object({
     first_name: z.string().min(2, "at least 2 characters").max(50),
     last_name: z.string().min(2, "at least 2 characters").max(50),
@@ -16,4 +17,5 @@ export const clientCreateRequestSchema = z.object({
     validity: z.string().min(1)
 });
 
+// defineste schema pentru updatata pentru client
 export const clientUpdateRequestSchema = clientCreateRequestSchema;

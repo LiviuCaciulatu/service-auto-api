@@ -1,6 +1,7 @@
 import {query} from "@/db";
 import * as types from "@/entities/file-upload/types";
 
+// creaza o intrare in baza de date pentru fiecare upload file
 export async function createFileRecord(url: string): Promise<types.FileUploadRecord> {
     const result = await query<types.FileUploadRecord>(
         `

@@ -6,6 +6,7 @@ import { pool } from "@/db";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+//migreaza baza de date
 async function migrate() {
 try{
     const filePath = path.join(__dirname, "../../sql/init.sql");
