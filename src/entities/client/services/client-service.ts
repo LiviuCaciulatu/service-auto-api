@@ -2,6 +2,7 @@ import {z} from "zod";
 import * as clientRepository from "@/entities/client/repositories/client-repository";
 import * as schemas from "@/entities/client/schemas/client-schema";
 import * as types from "@/entities/client/types";
+import {existsByClientId} from "@/entities/client/repositories/client-repository";
 
 // cheama get all clients din client-repository
 export async function getAllClients(): Promise<Array<types.Client>> {
@@ -14,6 +15,37 @@ export async function createClient(data: types.ClientCreateRequestSchema): Promi
         const parsed = schemas.clientCreateRequestSchema.parse(data);
         return await clientRepository.createClient(parsed);
     } catch (err) {
+        if (err instanceof z.ZodError) {
+            const errors: Record<string, string> = {};
+            err.issues.forEach(issue => {
+                if (issue.path && issue.path[0]) {
+                    const key = issue.path[0] as string;
+                    errors[key] = issue.message;
+                }
+            });
+
+            const validationError = new Error("Validation failed");
+            (validationError as any).status = 400;
+            (validationError as any).errors = errors;
+            throw validationError;
+        }
+
+        throw err;
+    }
+}
+
+export async function updateClient( id: string, data: types.ClientUpdateRequestSchema): Promise<types.Client> {
+    try {
+        const existingClient = await clientRepository.existsByClientId(id);
+        if(!existingClient) {
+            const error = new Error("Client not found");
+            (error as any).status = 404;
+            throw error;
+        }
+        const parsed = schemas.clientUpdateRequestSchema.parse(data);
+
+        return await clientRepository.updateClient(id, parsed);
+    }  catch (err) {
         if (err instanceof z.ZodError) {
             const errors: Record<string, string> = {};
             err.issues.forEach(issue => {

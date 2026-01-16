@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS car_documents
     property_Y VARCHAR(30),
     property_Z VARCHAR(30),
     observatii TEXT,
-    numar_cartificat VARCHAR(50),
+    numar_certificat VARCHAR(50),
     property_C_2_equals_C_1 BOOLEAN,
     property_C_3_equals_C_1 BOOLEAN,
 
@@ -76,6 +76,4 @@ ADD COLUMN client_id UUID NOT NULL;
 
 ALTER TABLE car_documents
 ADD CONSTRAINT fk_car_documents_client
-ADD FOREIGN KEY (client_id)
-REFERENCES clients(id)
-ON DELETE CASCADE;
+FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE;

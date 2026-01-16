@@ -25,3 +25,28 @@ export async function createClient(data: types.ClientCreateRequestSchema): Promi
 
     return result.rows[0];
 }
+
+export async function existsByClientId(id: string): Promise<boolean> {
+    const result = await query(
+        `SELECT * FROM clients WHERE id = $1`,
+        [id]
+    );
+    return (result.rowCount ?? 0) > 0;
+}
+
+export async function updateClient(id: string, data: types.ClientUpdateRequestSchema): Promise<types.Client> {
+    const result = await query(
+        `
+        UPDATE clients
+        SET first_name = $2, last_name = $3, country = $4, serie = $5, number = $6, nationality = $7, cnp = $8, birth_place = $9, address = $10, issued_by = $11, validity = $12
+        WHERE id = $1
+        RETURNING *
+        `, [id, data.first_name, data.last_name, data.country, data.serie, data.number, data.nationality, data.cnp, data.birth_place, data.address, data.issued_by, data.validity]
+    )
+
+    if (result.rowCount === 0) throw new Error("Client not found");
+    return result.rows[0];
+}
+
+
+

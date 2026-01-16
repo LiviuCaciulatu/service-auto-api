@@ -17,6 +17,18 @@ router.get("/", asyncHandler(async (req: Request, res: Response) => {
 router.post('/', async (req: Request, res: Response) => {
     const newClient: types.Client = await clientServices.createClient(req.body);
     res.status(201).json(newClient);
-})
+});
+
+router.put('/:id', async (req: Request, res: Response) =>{
+    const { id } = req.params;
+
+    if (!id) {
+        return res.status(400).json({message: "Id is required"});
+    }
+    const updateClient: types.Client = await clientServices.updateClient(id, req.body);
+    res.status(200).json(updateClient);
+});
+
+//TODO trebuie sa implementez metoda pentru get by id
 
 export default router;

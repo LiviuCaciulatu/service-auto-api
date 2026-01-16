@@ -3,11 +3,12 @@ import {asyncHandler} from "@/shared/async-handler";
 
 // defineste schema pentru car document
 export const carDocumentCreateSchema = z.object({
-    property_A: z.string().min(1),
-    property_J: z.string().min(1),
-    property_D_1: z.string().min(1),
-    property_D_2: z.string().min(1),
-    property_D_3: z.string().min(1),
+    client_id: z.uuidv4(),
+    property_A: z.string().min(1).max(19),
+    property_J: z.string().min(1).max(19),
+    property_D_1: z.string().min(1).max(49),
+    property_D_2: z.string().min(1).max(19),
+    property_D_3: z.string().min(1).max(29),
     property_E: z.string().min(1),
     property_K: z.string().min(1),
     property_C_2_1: z.string().min(1),
@@ -36,8 +37,7 @@ export const carDocumentCreateSchema = z.object({
     observatii: z.string().min(1),
     numar_certificat: z.string().min(1),
     property_C_2_equals_C_1: z.boolean(),
-    property_C_3_equals_C_1: z.boolean(),
-    created_at: z.string().min(1),
+    property_C_3_equals_C_1: z.boolean()
 })
 
 // defineste schema pentru updatata pentru car document

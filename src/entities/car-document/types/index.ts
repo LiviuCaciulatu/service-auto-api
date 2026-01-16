@@ -6,6 +6,7 @@ export type CarDocumentUpdateSchema = z.infer<typeof schemas.carDocumentUpdateSc
 
 export type CarDocument = {
     id: string;
+    client_id: string;
     property_A: string;
     property_J: string;
     property_D_1: string;
