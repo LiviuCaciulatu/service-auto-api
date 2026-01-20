@@ -2,7 +2,6 @@ import {z} from "zod";
 import * as clientRepository from "@/entities/client/repositories/client-repository";
 import * as schemas from "@/entities/client/schemas/client-schema";
 import * as types from "@/entities/client/types";
-import {existsByClientId} from "@/entities/client/repositories/client-repository";
 
 // cheama get all clients din client-repository
 export async function getAllClients(): Promise<Array<types.Client>> {
@@ -63,4 +62,8 @@ export async function updateClient( id: string, data: types.ClientUpdateRequestS
 
         throw err;
     }
+}
+
+export async function getClientById(id: string): Promise<types.Client> {
+    return clientRepository.getClientById(id);
 }

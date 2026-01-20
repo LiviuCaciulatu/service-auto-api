@@ -1,18 +1,16 @@
 import {z} from 'zod';
-import * as carDocumentRepository from '@/entities/car-document/repositories/car-document-repository';
-import * as schemas from '@/entities/car-document/schemas/car-document-schema';
-import * as types from "@/entities/car-document/types"
+import * as driverLicenseRepository from "@/entities/driver-license/repositories/driver-license-repository";
+import * as schemas from "@/entities/driver-license/schemas/driver-license-schema";
+import * as types from "@/entities/driver-license/types";
 import * as clientRepository from "@/entities/client/repositories/client-repository";
 
-// cheama get all car documents din car-document-repository
-export async function getAllCarDocuments(): Promise<Array<types.CarDocument>> {
-    return await carDocumentRepository.getAllCarDocuments();
+export async function getAllDriverLicenses(): Promise<Array<types.DriverLicense>>{
+    return await driverLicenseRepository.getAllDriverLicenses();
 }
 
-//cheama create car document din car-document-repository
-export async function createCarDocument(data: types.CarDocumentCreateSchema): Promise<types.CarDocument>{
-    try{
-        const parsed = schemas.carDocumentCreateSchema.parse(data);
+export async function createDriverLicense(data: types.DriverLicenseCreateSchema): Promise<types.DriverLicense>{
+    try {
+        const parsed = schemas.driverLicenseCreateSchema.parse(data);
 
         const clientExists = await clientRepository.existsByClientId(parsed.client_id);
         if(!clientExists) {
@@ -21,7 +19,7 @@ export async function createCarDocument(data: types.CarDocumentCreateSchema): Pr
             throw error;
         }
 
-        return await carDocumentRepository.createCarDocument(parsed);
+        return await driverLicenseRepository.createDriverLicense(parsed);
     } catch (err) {
         if (err instanceof z.ZodError) {
             const errors: Record<string, string> = {};
@@ -37,28 +35,29 @@ export async function createCarDocument(data: types.CarDocumentCreateSchema): Pr
             (validationError as any).errors = errors;
             throw validationError;
         }
+
         throw err;
     }
 }
 
-export async function updateCarDocument(id: string, data: types.CarDocumentUpdateSchema): Promise<types.CarDocument>{
+export async function updateDriverLicense (id: string, data: types.DriverLicenseUpdateSchema): Promise<types.DriverLicense> {
     try {
-        const existingDocument = await carDocumentRepository.getCarDocumentById(id);
-        if(!existingDocument) {
-            const error = new Error("Car document not found");
+        const existingDriverLicense = await driverLicenseRepository.getDriverLicenseById(id);
+        if (!existingDriverLicense) {
+            const error = new Error("Driver License not found");
             (error as any).status = 404;
             throw error;
         }
 
-        if(existingDocument.client_id !== data.client_id) {
+        if (existingDriverLicense.client_id !== data.client_id) {
             const error = new Error("Client ID does not match");
             (error as any).status = 400;
             throw error;
         }
 
-        const parsed = schemas.carDocumentUpdateSchema.parse(data);
+        const parsed = schemas.driverLicenseUpdateSchema.parse(data);
 
-        return await carDocumentRepository.updateCarDocument(id, parsed);
+        return await driverLicenseRepository.updateDriverLicense(id, parsed);
     } catch (err) {
         if (err instanceof z.ZodError) {
             const errors: Record<string, string> = {};
@@ -79,6 +78,6 @@ export async function updateCarDocument(id: string, data: types.CarDocumentUpdat
     }
 }
 
-export async function getCarDocumentById(id: string): Promise<types.CarDocument> {
-    return carDocumentRepository.getCarDocumentById(id);
+export async function getDriverLicenseById(id: string): Promise<types.DriverLicense>{
+    return driverLicenseRepository.getDriverLicenseById(id);
 }

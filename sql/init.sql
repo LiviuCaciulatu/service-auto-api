@@ -3,18 +3,18 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE TABLE IF NOT EXISTS clients 
 (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    first_name TEXT NOT NULL,
-    last_name TEXT NOT NULL,
+    first_name VARCHAR(40) NOT NULL,
+    last_name VARCHAR(40) NOT NULL,
 
-    country TEXT NOT NULL,
-    serie TEXT NOT NULL,
-    number TEXT NOT NULL,
-    nationality TEXT NOT NULL,
-    cnp TEXT NOT NULL,
-    birth_place TEXT NOT NULL,
-    address TEXT NOT NULL,
-    issued_by TEXT NOT NULL,
-    validity TEXT NOT NULL,
+    country VARCHAR(20) NOT NULL,
+    serie VARCHAR(10) NOT NULL,
+    number VARCHAR(10) NOT NULL,
+    nationality VARCHAR(30) NOT NULL,
+    cnp VARCHAR(20) NOT NULL,
+    birth_place VARCHAR(30) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    issued_by VARCHAR(50) NOT NULL,
+    validity VARCHAR(50) NOT NULL,
 
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
@@ -72,8 +72,32 @@ CREATE TABLE IF NOT EXISTS car_documents
 --relatia este: un client are mai multe car documents
 --comportament de stergere: la stergerea clientului se sterge toate car documents asociate
 ALTER TABLE car_documents
-ADD COLUMN client_id UUID NOT NULL;
+ADD COLUMN IF NOT EXISTS client_id UUID NOT NULL;
 
 ALTER TABLE car_documents
 ADD CONSTRAINT fk_car_documents_client
 FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE;
+
+CREATE TABLE IF NOT EXISTS driver_licenses
+(
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    client_id UUID NOT NULL,
+
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    date_of_birth VARCHAR(20) NOT NULL,
+    birth_place VARCHAR(50) NOT NULL,
+    issued_date VARCHAR(20) NOT NULL,
+    expiration_date VARCHAR(20) NOT NULL,
+    issued_by VARCHAR(50) NOT NULL,
+    license_number VARCHAR(30) NOT NULL,
+
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+ALTER TABLE driver_licenses
+ADD CONSTRAINT fk_driver_licenses_client
+FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE;
+
+ALTER TABLE driver_licenses
+ADD COLUMN IF NOT EXISTS vehicle_codes VARCHAR(5)[] NOT NULL DEFAULT '{}';

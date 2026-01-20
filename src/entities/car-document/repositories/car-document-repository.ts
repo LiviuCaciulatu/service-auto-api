@@ -40,7 +40,8 @@ export async function getCarDocumentById(id: string): Promise<types.CarDocument>
         `SELECT * FROM car_documents WHERE id = $1`,
         [id]
     );
-    return result.rows[0] ?? null;
+    if(result.rowCount === 0) throw new Error("Car document not found");
+    return result.rows[0];
 }
 
 export async function updateCarDocument(id: string, data: types.CarDocumentUpdateSchema): Promise<types.CarDocument> {

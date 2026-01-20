@@ -48,5 +48,14 @@ export async function updateClient(id: string, data: types.ClientUpdateRequestSc
     return result.rows[0];
 }
 
+export async function getClientById(id: string): Promise<types.Client> {
+    const result = await query(
+        `SELECT * FROM clients WHERE id = $1`,
+        [id]
+    );
+    if(result.rowCount === 0) throw new Error("Client not found");
+    return result.rows[0];
+}
+
 
 
