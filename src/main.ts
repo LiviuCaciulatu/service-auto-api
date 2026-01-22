@@ -5,6 +5,7 @@ import fileUploadController from "@/entities/file-upload/controllers/file-upload
 import carDocumentController from "@/entities/car-document/controllers/car-document-controller";
 import driverLicenseController from "@/entities/driver-license/controllers/driver-license-controller"
 import {errorMiddleware} from "@/config/error-middleware";
+import compensationClaimController from "@/entities/compensation-claim/controllers/compensation-claim-controller";
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use("/clients", clientController);
 app.use("/files", fileUploadController);
 app.use("/carDocuments", carDocumentController);
 app.use("/driverLicenses", driverLicenseController);
+app.use("/compensationClaims", compensationClaimController);
 
 app.use((req, res)=>{
     res.status(404).json({message: "not found", code: 404})
