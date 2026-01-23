@@ -87,3 +87,39 @@ export async function getCompensatedClientsByClaimId(claimId: string) {
 export async function deleteCompensatedClientsByClaimId(claimId: string): Promise<void>{
     return await compensatedClientRepository.deleteCompensatedClientByClaimId(claimId)
 }
+
+export async function createCompensatedClientsForClaim(claimId: string, clients?: types.CompensatedClientCreateSchema[]): Promise<types.CompensatedClient[]> {
+    if (!clients || !Array.isArray(clients)) return [];
+
+    for (const clientData of clients) {
+        await createCompensatedClient({
+            ...clientData,
+            claim_id: claimId
+        });
+    }
+
+    return getCompensatedClientsByClaimId(claimId);
+}
+
+export async function replaceCompensatedClientsForClaim(claimId: string, clients?: types.CompensatedClientCreateSchema[]): Promise<types.CompensatedClient[]> {
+
+    if (clients === undefined) {
+        return getCompensatedClientsByClaimId(claimId);
+    }
+
+    await deleteCompensatedClientsByClaimId(claimId);
+
+    if (clients.length === 0) {
+        return [];
+    }
+
+    for (const clientData of clients) {
+        await createCompensatedClient({
+            ...clientData,
+            claim_id: claimId
+        });
+    }
+
+    return getCompensatedClientsByClaimId(claimId);
+}
+
