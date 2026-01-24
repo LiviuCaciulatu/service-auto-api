@@ -82,3 +82,9 @@ export async function updateCarDocument(id: string, data: types.CarDocumentUpdat
 export async function getCarDocumentById(id: string): Promise<types.CarDocument> {
     return carDocumentRepository.getCarDocumentById(id);
 }
+
+export async function getCarDocumentsByClientId(clientId: string): Promise<Array<types.CarDocument>>{
+    const carDocuments = await carDocumentRepository.getCarDocumentsByClientId(clientId);
+
+    return carDocuments;
+}

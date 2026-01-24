@@ -55,3 +55,11 @@ export async function updateDriverLicense(id: string, data: types.DriverLicenseU
     if (result.rowCount === 0) throw  new Error("Driver License not found");
     return result.rows[0];
 }
+
+export async function getDriverLicensesByClientId(id: string): Promise<Array<types.DriverLicense>> {
+    const result = await query(
+        `SELECT * FROM driver_licenses WHERE client_id = $1`,
+        [id]
+    );
+    return result.rows;
+}

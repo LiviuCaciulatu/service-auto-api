@@ -29,8 +29,6 @@ router.put('/:id', async (req: Request, res: Response) =>{
     res.status(200).json(updateClient);
 });
 
-//TODO trebuie sa implementez metoda pentru get by id
-
 router.get("/:id", async (req: Request, res: Response) => {
     const {id} = req.params;
 
@@ -50,5 +48,32 @@ router.get("/:id", async (req: Request, res: Response) => {
         res.status(500).json({message: "Internal server error"});
     }
 });
+
+router.get("/:id/compensation-claims", async (req: Request, res: Response) => {
+    const {id} = req.params;
+    if (!id) {
+        return res.status(400).json({message: "Id is required"});
+    }
+    const result = await clientServices.getClientCompensationsClaims(id);
+    res.status(200).json(result);
+})
+
+router.get("/:id/car-documents", async (req: Request, res: Response) => {
+    const {id} = req.params;
+    if (!id) {
+        return res.status(400).json({message: "Id is required"});
+    }
+    const result = await clientServices.getClientCarDocuments(id);
+    res.status(200).json(result);
+})
+
+router.get("/:id/driver-license", async (req: Request, res: Response) => {
+    const {id} = req.params;
+    if (!id){
+        return res.status(400).json({message: "Id is required"});
+    }
+    const result = await clientServices.getClientDriverLicensesByClientId(id)
+    res.status(200).json(result);
+})
 
 export default router;

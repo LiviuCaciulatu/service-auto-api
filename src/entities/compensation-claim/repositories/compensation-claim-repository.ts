@@ -53,5 +53,12 @@ export async function updateCompensationClaim(id: string, data: types.Compensati
     return result.rows[0];
 }
 
+export async function getCompensationClaimsByClientId(clientId: string): Promise<Array<types.CompensationClaim>> {
+    const result = await query(
+        `SELECT * FROM compensation_claims WHERE client_id = $1`,
+        [clientId]
+    );
+    return result.rows;
+}
 
 

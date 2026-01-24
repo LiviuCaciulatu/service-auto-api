@@ -4,10 +4,6 @@ import * as schemas from '@/entities/compensated-client/schemas/compensated-clie
 import * as types from "@/entities/compensated-client/types";
 import * as compensationClaimRepository from "@/entities/compensation-claim/repositories/compensation-claim-repository";
 
-// export async function getAllCompensatedClients(): Promise<Array<types.CompensatedClient>> {
-//     return await compensatedClientRepository.getAllCompensatedClients();
-// }
-
 export async function createCompensatedClient(data: types.CompensatedClientCreateSchema): Promise<types.CompensatedClient>{
     try{
         const parsed = schemas.compensatedClientCreateSchema.parse(data);

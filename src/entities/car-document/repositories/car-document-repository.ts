@@ -128,3 +128,11 @@ export async function updateCarDocument(id: string, data: types.CarDocumentUpdat
     if (result.rowCount === 0) throw new Error("Car document not found");
     return result.rows[0];
 }
+
+export async function getCarDocumentsByClientId(id: string): Promise<Array<types.CarDocument>> {
+    const result = await query(
+        `SELECT * FROM car_documents WHERE client_id = $1`,
+        [id]
+    );
+    return result.rows;
+}

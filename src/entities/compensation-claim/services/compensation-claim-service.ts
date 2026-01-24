@@ -95,3 +95,14 @@ export async function getCompensationClaimById(id: string): Promise<types.Compen
         compensated_clients: compensateClients
     }
 }
+
+export async function getCompensationClaimsByClientId(clientId: string): Promise<Array<types.CompensationClaim>>{
+    const claims = await compensationClaimRepository.getCompensationClaimsByClientId(clientId);
+
+    for (const claim of claims){
+        const compensatedClients = await compensatedClientService.getCompensatedClientsByClaimId(claim.id);
+        claim.compensated_clients = compensatedClients;
+    }
+
+    return claims;
+}

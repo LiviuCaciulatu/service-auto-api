@@ -1,7 +1,13 @@
 import {z} from "zod";
 import * as clientRepository from "@/entities/client/repositories/client-repository";
 import * as schemas from "@/entities/client/schemas/client-schema";
+import * as carDocumentService from "@/entities/car-document/services/car-document-service";
+import * as compensationClaimService from "@/entities/compensation-claim/services/compensation-claim-service";
+import * as driverLicenseService from "@/entities/driver-license/services/driver-license-service"
 import * as types from "@/entities/client/types";
+import * as claimTypes from "@/entities/compensation-claim/types";
+import * as carDocumentTypes from "@/entities/car-document/types";
+import * as driverLicenseTypes from "@/entities/driver-license/types";
 
 // cheama get all clients din client-repository
 export async function getAllClients(): Promise<Array<types.Client>> {
@@ -66,4 +72,16 @@ export async function updateClient( id: string, data: types.ClientUpdateRequestS
 
 export async function getClientById(id: string): Promise<types.Client> {
     return clientRepository.getClientById(id);
+}
+
+export async function getClientCompensationsClaims(clientId: string): Promise<Array<claimTypes.CompensationClaim>>{
+    return compensationClaimService.getCompensationClaimsByClientId(clientId)
+}
+
+export async function getClientCarDocuments(clientId: string): Promise<Array<carDocumentTypes.CarDocument>>{
+    return carDocumentService.getCarDocumentsByClientId(clientId)
+}
+
+export async function getClientDriverLicensesByClientId(clientId: string): Promise<Array<driverLicenseTypes.DriverLicense>>{
+    return driverLicenseService.getDriverLicensesByClientId(clientId)
 }

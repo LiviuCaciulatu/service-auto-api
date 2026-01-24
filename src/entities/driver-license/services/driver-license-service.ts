@@ -81,3 +81,7 @@ export async function updateDriverLicense (id: string, data: types.DriverLicense
 export async function getDriverLicenseById(id: string): Promise<types.DriverLicense>{
     return driverLicenseRepository.getDriverLicenseById(id);
 }
+
+export async function getDriverLicensesByClientId(id: string): Promise<Array<types.DriverLicense>>{
+    return driverLicenseRepository.getDriverLicensesByClientId(id);
+}
