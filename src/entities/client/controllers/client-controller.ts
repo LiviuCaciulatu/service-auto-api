@@ -63,7 +63,7 @@ router.get("/:id/car-documents", async (req: Request, res: Response) => {
     if (!id) {
         return res.status(400).json({message: "Id is required"});
     }
-    const result = await clientServices.getClientCarDocuments(id);
+    const result = await clientServices.getCarDocumentsByClientId(id);
     res.status(200).json(result);
 })
 

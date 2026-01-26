@@ -57,5 +57,52 @@ export async function getClientById(id: string): Promise<types.Client> {
     return result.rows[0];
 }
 
+export async function getCompensationClaimsByClientId(clientId: string){
+    const result = await query(
+        `
+    SELECT
+      cc.*,
+      COALESCE(comp.compensated_clients, '[]'::json) AS compensated_clients
+    FROM compensation_claims cc
+    LEFT JOIN (
+      SELECT
+        claim_id,
+        json_agg(
+          json_build_object(
+            'id', id,
+            'amount', amount,
+            'bank', bank,
+            'iban', iban,
+            'account_holder', account_holder,
+            'created_at', created_at
+          )
+        ) AS compensated_clients
+      FROM compensated_drivers
+      GROUP BY claim_id
+    ) comp ON comp.claim_id = cc.id
+    WHERE cc.client_id = $1
+    ORDER BY cc.created_at DESC
+    `,
+        [clientId]
+    );
+
+    return result.rows;
+}
+
+export async function getDriverLicensesByClientId(clientId: string){
+    const result = await query(
+        `SELECT * FROM driver_licenses WHERE client_id = $1`,
+        [clientId]
+    );
+    return result.rows;
+}
+
+export async function getCarDocumentsByClientId(clientId: string){
+    const result = await query(
+        `SELECT * FROM car_documents WHERE client_id = $1`,
+        [clientId]
+    );
+    return result.rows;
+}
 
 

@@ -75,13 +75,13 @@ export async function getClientById(id: string): Promise<types.Client> {
 }
 
 export async function getClientCompensationsClaims(clientId: string): Promise<Array<claimTypes.CompensationClaim>>{
-    return compensationClaimService.getCompensationClaimsByClientId(clientId)
+    return clientRepository.getCompensationClaimsByClientId(clientId)
 }
 
-export async function getClientCarDocuments(clientId: string): Promise<Array<carDocumentTypes.CarDocument>>{
-    return carDocumentService.getCarDocumentsByClientId(clientId)
+export async function getCarDocumentsByClientId(clientId: string): Promise<Array<carDocumentTypes.CarDocument>>{
+    return clientRepository.getCarDocumentsByClientId(clientId)
 }
 
 export async function getClientDriverLicensesByClientId(clientId: string): Promise<Array<driverLicenseTypes.DriverLicense>>{
-    return driverLicenseService.getDriverLicensesByClientId(clientId)
+    return clientRepository.getDriverLicensesByClientId(clientId)
 }
