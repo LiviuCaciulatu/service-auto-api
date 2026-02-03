@@ -9,6 +9,13 @@
     "declarationMap": true,
     "sourceMap": true,
 
+    "compilerOptions": {
+      "moduleResolution": "node",
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "skipLibCheck": true
+    },
+
     "lib": ["es2020"],
     "types": ["node"],
     "esModuleInterop": true,

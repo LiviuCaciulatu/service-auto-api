@@ -6,6 +6,7 @@ import carDocumentController from "@/entities/car-document/controllers/car-docum
 import driverLicenseController from "@/entities/driver-license/controllers/driver-license-controller"
 import {errorMiddleware} from "@/config/error-middleware";
 import compensationClaimController from "@/entities/compensation-claim/controllers/compensation-claim-controller";
+declare module "pdfjs-dist/legacy/build/pdf";
 
 const app = express();
 

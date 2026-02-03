@@ -16,4 +16,5 @@ export type DriverLicense = {
     issued_by: string;
     license_number: string;
     vehicle_codes: string[];
+    created_at: string;
 }
