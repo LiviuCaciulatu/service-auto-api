@@ -18,6 +18,17 @@ router.post('/', asyncHandler(async (req: Request, res: Response) => {
 })
 );
 
+router.get("/by-url/:url", async (req: Request, res: Response) =>{
+    const {url} = req.params;
+
+    if (!url) {
+        return res.status(400).json({message: "Url is required"});
+    }
+
+    const carDocument = await carDocumentServices.getCarDocumentByUrl(url);
+    res.status(200).json(carDocument);
+})
+
 router.put('/:id', async (req: Request, res: Response) =>{
     const { id } = req.params;
 

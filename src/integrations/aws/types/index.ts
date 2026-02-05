@@ -11,3 +11,12 @@ export type S3UploadInput = {
     bucket?: string;
 }
 
+
+export type TextractStatus = {
+    status: "SUCCEEDED" | "FAILED" | "IN_PROGRESS";
+    rawText?: string;
+}
+
+export type OcrResult =
+    | { status: "COMPLETED"; text: string }
+    | { status: "UPLOADED"; key: string };

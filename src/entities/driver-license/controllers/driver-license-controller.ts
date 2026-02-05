@@ -18,6 +18,17 @@ router.post('/', asyncHandler(async (req: Request, res: Response) => {
 })
 );
 
+router.get("/by-url/:url", async (req: Request, res: Response) =>{
+    const {url} = req.params;
+
+    if (!url){
+        return res.status(400).json({message: "Url is required"});
+    }
+
+    const driverLicense = await driverLicenseServices.getDriverLicenseByUrl(url);
+    res.status(200).json(driverLicense);
+})
+
 router.put('/:id', async (req: Request, res: Response) =>{
     const { id } = req.params;
 

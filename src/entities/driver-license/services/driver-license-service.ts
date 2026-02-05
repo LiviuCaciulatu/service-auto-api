@@ -3,6 +3,8 @@ import * as driverLicenseRepository from "@/entities/driver-license/repositories
 import * as schemas from "@/entities/driver-license/schemas/driver-license-schema";
 import * as types from "@/entities/driver-license/types";
 import * as clientRepository from "@/entities/client/repositories/client-repository";
+import * as awsTextExtractService from "@/integrations/aws/services/aws-text-extract-service";
+import * as awsParseDriverLicenseService from "@/integrations/aws/services/aws-parse-driver-license-service"
 
 export async function getAllDriverLicenses(): Promise<Array<types.DriverLicense>>{
     return await driverLicenseRepository.getAllDriverLicenses();
@@ -84,4 +86,14 @@ export async function getDriverLicenseById(id: string): Promise<types.DriverLice
 
 export async function getDriverLicensesByClientId(id: string): Promise<Array<types.DriverLicense>>{
     return driverLicenseRepository.getDriverLicensesByClientId(id);
+}
+
+export async function getDriverLicenseByUrl(url: string): Promise<Partial<types.DriverLicense>>{
+    const ocrResult = await awsTextExtractService.extractTextFromFile(url);
+
+    if(ocrResult.status !== "COMPLETED") {
+        throw new Error("OCR failed");
+    }
+
+    return awsParseDriverLicenseService.parseDriverLicense(ocrResult.text);
 }

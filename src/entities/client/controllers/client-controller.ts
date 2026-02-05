@@ -19,6 +19,17 @@ router.post('/', async (req: Request, res: Response) => {
     res.status(201).json(newClient);
 });
 
+router.get("/from-file", async (req: Request, res: Response) =>{
+    const {url} = req.query;
+
+    if(!url || typeof url !== "string"){
+        return res.status(400).json({message: "Url is required"});
+    }
+
+    const client = await clientServices.getClientByUrl(url);
+    res.status(200).json(client);
+})
+
 router.put('/:id', async (req: Request, res: Response) =>{
     const { id } = req.params;
 
@@ -75,5 +86,7 @@ router.get("/:id/driver-license", async (req: Request, res: Response) => {
     const result = await clientServices.getClientDriverLicensesByClientId(id)
     res.status(200).json(result);
 })
+
+
 
 export default router;

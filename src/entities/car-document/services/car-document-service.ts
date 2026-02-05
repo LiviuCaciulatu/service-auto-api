@@ -3,6 +3,8 @@ import * as carDocumentRepository from '@/entities/car-document/repositories/car
 import * as schemas from '@/entities/car-document/schemas/car-document-schema';
 import * as types from "@/entities/car-document/types"
 import * as clientRepository from "@/entities/client/repositories/client-repository";
+import * as awsTextExtractService from "@/integrations/aws/services/aws-text-extract-service";
+import * as awsParseCarDocumentService from "@/integrations/aws/services/aws-parse-car-document-service";
 
 // cheama get all car documents din car-document-repository
 export async function getAllCarDocuments(): Promise<Array<types.CarDocument>> {
@@ -87,4 +89,14 @@ export async function getCarDocumentsByClientId(clientId: string): Promise<Array
     const carDocuments = await carDocumentRepository.getCarDocumentsByClientId(clientId);
 
     return carDocuments;
+}
+
+export async function getCarDocumentByUrl(url: string): Promise<Partial<types.CarDocument>>{
+    const ocrResult = await awsTextExtractService.extractTextFromFile(url);
+
+    if(ocrResult.status !== "COMPLETED") {
+        throw new Error("OCR failed");
+    }
+
+    return awsParseCarDocumentService.parseCarDocument(ocrResult.text);
 }

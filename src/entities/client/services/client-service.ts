@@ -8,6 +8,10 @@ import * as types from "@/entities/client/types";
 import * as claimTypes from "@/entities/compensation-claim/types";
 import * as carDocumentTypes from "@/entities/car-document/types";
 import * as driverLicenseTypes from "@/entities/driver-license/types";
+import * as awsTextExtractService from "@/integrations/aws/services/aws-text-extract-service"
+import * as awsParseClientService from "@/integrations/aws/services/aws-parse-client-service"
+import * as awsTextExtractTypes from "@/integrations/aws/types"
+
 
 // cheama get all clients din client-repository
 export async function getAllClients(): Promise<Array<types.Client>> {
@@ -84,4 +88,14 @@ export async function getCarDocumentsByClientId(clientId: string): Promise<Array
 
 export async function getClientDriverLicensesByClientId(clientId: string): Promise<Array<driverLicenseTypes.DriverLicense>>{
     return clientRepository.getDriverLicensesByClientId(clientId)
+}
+
+export async function getClientByUrl(url: string): Promise<Partial<types.Client>> {
+    const ocrResult = await awsTextExtractService.extractTextFromFile(url);
+
+    if (ocrResult.status !== "COMPLETED") {
+        throw new Error("OCR failed");
+    }
+
+    return awsParseClientService.parseClientIdCard(ocrResult.text);
 }
