@@ -3,6 +3,7 @@ import {Router} from 'express';
 import {asyncHandler} from "@/shared/async-handler";
 import * as driverLicenseServices from "@/entities/driver-license/services/driver-license-service";
 import * as types from "@/entities/driver-license/types";
+import * as clientServices from "@/entities/client/services/client-service";
 
 const router = Router();
 
@@ -18,16 +19,17 @@ router.post('/', asyncHandler(async (req: Request, res: Response) => {
 })
 );
 
-router.get("/by-url/:url", async (req: Request, res: Response) =>{
-    const {url} = req.params;
+router.get("/from-file", async (req: Request, res: Response) =>{
+    const {url} = req.query;
 
-    if (!url){
+    if(!url || typeof url !== "string"){
         return res.status(400).json({message: "Url is required"});
     }
 
-    const driverLicense = await driverLicenseServices.getDriverLicenseByUrl(url);
-    res.status(200).json(driverLicense);
+    const client = await driverLicenseServices.getDriverLicenseByUrl(url);
+    res.status(200).json(client);
 })
+
 
 router.put('/:id', async (req: Request, res: Response) =>{
     const { id } = req.params;
