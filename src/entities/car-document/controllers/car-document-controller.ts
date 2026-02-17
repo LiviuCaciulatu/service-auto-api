@@ -3,6 +3,8 @@ import {Router} from 'express';
 import {asyncHandler} from "@/shared/async-handler";
 import * as carDocumentServices from "@/entities/car-document/services/car-document-service";
 import * as types from "@/entities/car-document/types";
+import * as clientServices from "@/entities/client/services/client-service";
+import {getCarDocumentByUrl} from "@/entities/car-document/services/car-document-service";
 
 const router = Router();
 
@@ -18,15 +20,15 @@ router.post('/', asyncHandler(async (req: Request, res: Response) => {
 })
 );
 
-router.get("/by-url/:url", async (req: Request, res: Response) =>{
-    const {url} = req.params;
+router.get("/from-file", async (req: Request, res: Response) =>{
+    const {url} = req.query;
 
-    if (!url) {
+    if(!url || typeof url !== "string"){
         return res.status(400).json({message: "Url is required"});
     }
 
-    const carDocument = await carDocumentServices.getCarDocumentByUrl(url);
-    res.status(200).json(carDocument);
+    const client = await carDocumentServices.getCarDocumentByUrl(url);
+    res.status(200).json(client);
 })
 
 router.put('/:id', async (req: Request, res: Response) =>{

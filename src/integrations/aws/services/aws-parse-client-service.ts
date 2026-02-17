@@ -70,8 +70,41 @@ function extractCountry(lines: string[]): string | undefined {
 }
 
 function extractNationality(lines: string[]): string | undefined {
-    return findLabelValue(lines, ["Cetatenie", "Nationality", "Nationalite"]);
+    const labelIndex = lines.findIndex(line =>
+        /CETAT|NATIONAL/i.test(normalizeForMatch(line))
+    );
+
+    if (labelIndex === -1) return undefined;
+
+    for (let i = labelIndex + 1; i < lines.length; i++) {
+        const raw = lines[i];
+        if (!raw) continue;
+
+        const normalized = normalizeLine(raw);
+        if (!normalized) continue;
+
+        const upper = normalizeForMatch(normalized);
+
+        // Skip other label lines like Sex/Sexe/Sex
+        if (LABEL_KEYWORDS.test(upper)) continue;
+
+        // Skip gender line if just M/F
+        if (/^(M|F)$/i.test(normalized)) continue;
+
+        // If the line is in the format: Romana / ROU, take first part
+        if (normalized.includes("/")) {
+            const parts = normalized.split("/");
+            const value = parts[0]?.trim();
+            if (value) return value;
+        }
+
+        // Otherwise, return the line itself
+        return normalized;
+    }
+
+    return undefined;
 }
+
 
 function extractSerieAndNumber(
     joined: string
@@ -119,37 +152,132 @@ function extractCnp(text: string): string | undefined {
 }
 
 function extractBirthplace(lines: string[]): string | undefined {
-    return findLabelValue(lines, ["Loc nastere", "Place of birth", "Lieu de naissance"]);
+    const labelIndex = lines.findIndex(line =>
+        /LOC\s*NAST|PLACE\s*OF\s*BIRTH|LIEU\s*DE\s*NAISS/i.test(
+            normalizeForMatch(line)
+        )
+    );
+
+    if (labelIndex === -1) return undefined;
+
+    for (let i = labelIndex + 1; i < lines.length; i++) {
+        const raw = lines[i];
+        if (!raw) continue;
+
+        const normalized = normalizeLine(raw);
+        if (!normalized) continue;
+
+        const upper = normalizeForMatch(normalized);
+
+        // Stop if another label starts
+        if (LABEL_KEYWORDS.test(upper)) break;
+
+        return normalized;
+    }
+
+    return undefined;
 }
 
 function extractAddress(lines: string[]): string | undefined {
-    const idx = lines.findIndex(l =>
-        /DOMICILIU|DOMICILE|ADDRESS|ADRESSE/i.test(normalizeForMatch(l))
+    const labelIndex = lines.findIndex(line =>
+        /DOMICILIU|DOMICILE|ADDRESS|ADRESSE/i.test(normalizeForMatch(line))
     );
-    if (idx < 0) return undefined;
+
+    if (labelIndex === -1) return undefined;
 
     const parts: string[] = [];
-    for (let i = idx + 1; i < Math.min(lines.length, idx + 4); i++) {
-        const line = lines[i];
-        if (!line) continue;
 
-        const u = normalizeForMatch(line);
-        if (/EMISA|VALABILITATE|CNP|SERIA|NR|NUME|PRENUME|LOC NASTER/i.test(u)) break;
+    for (let i = labelIndex + 1; i < lines.length; i++) {
+        const raw = lines[i];
+        if (!raw) continue;
 
-        parts.push(line);
+        const normalized = normalizeLine(raw);
+        if (!normalized) continue;
+
+        const upper = normalizeForMatch(normalized);
+
+        // Stop if we reach another major label block
+        if (
+            /EMISA|DELIVREE|ISSUED|VALABIL|VALIDIT|CNP|SERIA|NR|NUME|PRENUME|LOC\s*NAST/i.test(
+                upper
+            )
+        ) {
+            break;
+        }
+
+        const isGarbage =
+            normalized.length < 3 ||
+            !/[a-zA-Z]/.test(normalized) || // no letters → probably garbage
+            /^[0-9]{1,3}\s?[a-z]{1,3}$/i.test(normalized); // small OCR code
+
+        if (isGarbage) continue;
+
+        parts.push(normalized);
     }
 
     return parts.length ? parts.join(" ") : undefined;
 }
 
-
 function extractIssuedBy(lines: string[]): string | undefined {
-    return findLabelValue(lines, ["Emisa de", "Issued by", "Delivree par"]);
+    const labelIndex = lines.findIndex(line =>
+        /EMISA|ISSUED|DELIVREE/i.test(normalizeForMatch(line))
+    );
+
+    if (labelIndex === -1) return undefined;
+
+    for (let i = labelIndex + 1; i < lines.length; i++) {
+        const raw = lines[i];
+        if (!raw) continue;
+
+        const normalized = normalizeLine(raw);
+        if (!normalized) continue;
+
+        const upper = normalizeForMatch(normalized);
+
+        // Skip other label lines (like Valabilitate)
+        if (LABEL_KEYWORDS.test(upper)) continue;
+
+        // Stop if we hit a validity date
+        if (/\d{2}\.\d{2}\.\d{2,4}/.test(normalized)) break;
+
+        return normalized;
+    }
+
+    return undefined;
 }
 
 function extractValidity(lines: string[]): string | undefined {
-    return findLabelValue(lines, ["Valabilitate", "Validity", "Validite"]);
+    const labelIndex = lines.findIndex(line =>
+        /VALABIL|VALIDIT/i.test(normalizeForMatch(line))
+    );
+
+    if (labelIndex === -1) return undefined;
+
+    for (let i = labelIndex + 1; i < lines.length; i++) {
+        const raw = lines[i];
+        if (!raw) continue;
+
+        const normalized = normalizeLine(raw);
+        if (!normalized) continue;
+
+        const upper = normalizeForMatch(normalized);
+
+        // Stop if we hit another unrelated label block
+        if (
+            /CNP|SERIA|NUME|PRENUME|LOC\s*NAST|DOMICILIU/i.test(upper)
+        ) {
+            break;
+        }
+
+        // Match date range (17.01.17-06.05.2027)
+        if (/\d{2}\.\d{2}\.\d{2,4}\s*-\s*\d{2}\.\d{2}\.\d{2,4}/.test(normalized)) {
+            return normalized;
+        }
+    }
+
+    return undefined;
 }
+
 
 export function parseClientIdCard(rawText: string): Partial<clientTypes.Client> {
     const rawLines = rawText

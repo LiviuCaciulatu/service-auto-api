@@ -61,8 +61,19 @@ function extractBirthData(lines: string[]): {
     const content = extractAfterLabel(line, "3.");
     if (!content) return {};
 
-    const date = parseDate(content);
-    const place = content.replace(/\d{2}[./]\d{2}[./]\d{4}/, "").trim();
+    // Match date with optional space before year
+    const dateRegex = /\b(\d{2}[./]\d{2}[./]\s*\d{4})\b/;
+    const dateMatch = content.match(dateRegex);
+
+    let date: string | undefined;
+    if (dateMatch && dateMatch[1]) {
+        date = parseDate(dateMatch[1].replace(/\s+/g, "")); // remove extra space for parseDate
+    }
+
+    // Remove the matched date from content to get birthplace
+    const birthPlace = dateMatch && dateMatch[0]
+        ? content.replace(dateMatch[0], "").trim()
+        : content.trim();
 
     const result: {
         date_of_birth?: string;
@@ -70,10 +81,13 @@ function extractBirthData(lines: string[]): {
     } = {};
 
     if (date) result.date_of_birth = date;
-    if (place) result.birth_place = place;
+    if (birthPlace) result.birth_place = birthPlace;
 
     return result;
 }
+
+
+
 
 function extractIssuedInfo(lines: string[]): {
     issued_date?: string;
