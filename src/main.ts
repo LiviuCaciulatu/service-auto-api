@@ -15,7 +15,7 @@ const app = express();
 app.use(express.json());
 
 app.get("/health", (_req, res) => {
-    res.json({status: "ok", message: "Service Auto API is running"});
+    res.json({ status: "UP" });
 });
 
 app.use("/clients", clientController);
