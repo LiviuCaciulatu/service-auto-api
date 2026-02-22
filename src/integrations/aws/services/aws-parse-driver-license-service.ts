@@ -1,10 +1,6 @@
+import {extractAfterLabel, normalizeLine, parseDate} from "@/integrations/aws/services/aws-text-extract-service";
+
 import * as driverLicenseTypes from "@/entities/driver-license/types";
-import {
-    extractAfterLabel,
-    normalizeForMatch,
-    normalizeLine,
-    parseDate
-} from "@/integrations/aws/services/aws-text-extract-service";
 
 
 export function parseDriverLicense(rawText: string): Partial<driverLicenseTypes.DriverLicense> {
@@ -137,4 +133,3 @@ function extractVehicleCodes(lines: string[]): string[] | undefined {
     const cats = extractAfterLabel(line, "9.");
     return cats ? cats.split(/\s+/).filter(Boolean) : undefined;
 }
-

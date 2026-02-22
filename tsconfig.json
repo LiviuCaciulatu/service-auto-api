@@ -9,19 +9,16 @@
     "declarationMap": true,
     "sourceMap": true,
 
-    "compilerOptions": {
-      "moduleResolution": "node",
-      "esModuleInterop": true,
-      "allowSyntheticDefaultImports": true,
-      "skipLibCheck": true
-    },
-
     "lib": ["es2020"],
     "types": ["node"],
+    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "strict": true,
     "skipLibCheck": true,
     "isolatedModules": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "forceConsistentCasingInFileNames": true,
 
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,

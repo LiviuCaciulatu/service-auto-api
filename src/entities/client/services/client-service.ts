@@ -1,16 +1,13 @@
 import {z} from "zod";
-import * as clientRepository from "@/entities/client/repositories/client-repository";
-import * as schemas from "@/entities/client/schemas/client-schema";
-import * as carDocumentService from "@/entities/car-document/services/car-document-service";
-import * as compensationClaimService from "@/entities/compensation-claim/services/compensation-claim-service";
-import * as driverLicenseService from "@/entities/driver-license/services/driver-license-service"
+
 import * as types from "@/entities/client/types";
+import * as schemas from "@/entities/client/schemas/client-schema";
 import * as claimTypes from "@/entities/compensation-claim/types";
 import * as carDocumentTypes from "@/entities/car-document/types";
+import * as clientRepository from "@/entities/client/repositories/client-repository";
 import * as driverLicenseTypes from "@/entities/driver-license/types";
 import * as awsTextExtractService from "@/integrations/aws/services/aws-text-extract-service"
 import * as awsParseClientService from "@/integrations/aws/services/aws-parse-client-service"
-import * as awsTextExtractTypes from "@/integrations/aws/types"
 
 
 // cheama get all clients din client-repository

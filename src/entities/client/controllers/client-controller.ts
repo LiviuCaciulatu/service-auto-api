@@ -1,13 +1,15 @@
 import type {Request, Response} from "express";
+
 import {Router} from "express"
 import {asyncHandler} from "@/shared/async-handler";
-import * as clientServices from "@/entities/client/services/client-service";
-import * as types from "@/entities/client/types";
 
-const router = Router();
+import * as types from "@/entities/client/types";
+import * as clientServices from "@/entities/client/services/client-service";
+
+const router: import("express").Router = Router();
 
 // cheama get all clients din client-service
-router.get("/", asyncHandler(async (req: Request, res: Response) => {
+router.get("/", asyncHandler(async (_req: Request, res: Response) => {
         const clients: Array<types.Client> = await clientServices.getAllClients();
         res.json(clients);
     })
@@ -33,7 +35,7 @@ router.get("/from-file", async (req: Request, res: Response) =>{
 router.put('/:id', async (req: Request, res: Response) =>{
     const { id } = req.params;
 
-    if (!id) {
+    if (typeof id !== "string" || !id) {
         return res.status(400).json({message: "Id is required"});
     }
     const updateClient: types.Client = await clientServices.updateClient(id, req.body);
@@ -43,7 +45,7 @@ router.put('/:id', async (req: Request, res: Response) =>{
 router.get("/:id", async (req: Request, res: Response) => {
     const {id} = req.params;
 
-    if (!id) {
+    if (typeof id !== "string" || !id) {
         return res.status(400).json({message: "Id is required"});
     }
 
@@ -62,7 +64,7 @@ router.get("/:id", async (req: Request, res: Response) => {
 
 router.get("/:id/compensation-claims", async (req: Request, res: Response) => {
     const {id} = req.params;
-    if (!id) {
+    if (typeof id !== "string" || !id) {
         return res.status(400).json({message: "Id is required"});
     }
     const result = await clientServices.getClientCompensationsClaims(id);
@@ -71,7 +73,7 @@ router.get("/:id/compensation-claims", async (req: Request, res: Response) => {
 
 router.get("/:id/car-documents", async (req: Request, res: Response) => {
     const {id} = req.params;
-    if (!id) {
+    if (typeof id !== "string" || !id) {
         return res.status(400).json({message: "Id is required"});
     }
     const result = await clientServices.getCarDocumentsByClientId(id);
@@ -80,7 +82,7 @@ router.get("/:id/car-documents", async (req: Request, res: Response) => {
 
 router.get("/:id/driver-license", async (req: Request, res: Response) => {
     const {id} = req.params;
-    if (!id){
+    if (typeof id !== "string" || !id){
         return res.status(400).json({message: "Id is required"});
     }
     const result = await clientServices.getClientDriverLicensesByClientId(id)

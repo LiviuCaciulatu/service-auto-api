@@ -1,12 +1,18 @@
 import {z} from 'zod';
-import * as compensatedClientRepository from '@/entities/compensated-client/repositories/compensated-client-repository';
-import * as schemas from '@/entities/compensated-client/schemas/compensated-client-schema';
+
 import * as types from "@/entities/compensated-client/types";
+import * as schemas from '@/entities/compensated-client/schemas/compensated-client-schema';
+import * as compensatedClientRepository from '@/entities/compensated-client/repositories/compensated-client-repository';
 import * as compensationClaimRepository from "@/entities/compensation-claim/repositories/compensation-claim-repository";
 
 export async function createCompensatedClient(data: types.CompensatedClientCreateSchema): Promise<types.CompensatedClient>{
     try{
         const parsed = schemas.compensatedClientCreateSchema.parse(data);
+        if (!parsed.claim_id) {
+            const error = new Error("Compensation claim ID is required");
+            (error as any).status = 400;
+            throw error;
+        }
 
         const claimExists = await compensationClaimRepository.existsByCompensationClaimId(parsed.claim_id);
         if(!claimExists) {
@@ -118,4 +124,3 @@ export async function replaceCompensatedClientsForClaim(claimId: string, clients
 
     return getCompensatedClientsByClaimId(claimId);
 }
-

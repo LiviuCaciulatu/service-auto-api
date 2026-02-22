@@ -1,14 +1,14 @@
 import type {Request, Response} from 'express';
+
 import {Router} from 'express';
 import {asyncHandler} from "@/shared/async-handler";
+
 import * as carDocumentServices from "@/entities/car-document/services/car-document-service";
 import * as types from "@/entities/car-document/types";
-import * as clientServices from "@/entities/client/services/client-service";
-import {getCarDocumentByUrl} from "@/entities/car-document/services/car-document-service";
 
-const router = Router();
+const router: import("express").Router = Router();
 
-router.get('/', asyncHandler(async (req: Request, res: Response) => {
+router.get('/', asyncHandler(async (_req: Request, res: Response) => {
     const carDocuments: Array<types.CarDocument> = await carDocumentServices.getAllCarDocuments();
     res.json(carDocuments);
 })
@@ -34,7 +34,7 @@ router.get("/from-file", async (req: Request, res: Response) =>{
 router.put('/:id', async (req: Request, res: Response) =>{
     const { id } = req.params;
 
-    if (!id) {
+    if (typeof id !== "string" || !id) {
         return res.status(400).json({message: "Id is required"});
     }
     const updateCarDocument: types.CarDocument = await carDocumentServices.updateCarDocument(id, req.body);
@@ -43,7 +43,7 @@ router.put('/:id', async (req: Request, res: Response) =>{
 
 router.get("/:id", async (req: Request, res: Response) => {
     const {id} = req.params;
-    if(!id) {
+    if (typeof id !== "string" || !id) {
         return res.status(400).json({message: "Id is required"});
     }
 

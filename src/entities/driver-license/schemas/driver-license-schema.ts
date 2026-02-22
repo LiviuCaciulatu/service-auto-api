@@ -1,5 +1,4 @@
 import {z} from "zod";
-import {asyncHandler} from "@/shared/async-handler";
 
 export const driverLicenseCreateSchema = z.object({
     client_id: z.uuidv4(),

@@ -1,12 +1,14 @@
 import type {Request, Response} from "express";
+
 import {Router} from "express";
 import {asyncHandler} from "@/shared/async-handler";
-import * as compensationClaimServices from "@/entities/compensation-claim/services/compensation-claim-service";
+
 import * as types from "@/entities/compensation-claim/types";
+import * as compensationClaimServices from "@/entities/compensation-claim/services/compensation-claim-service";
 
-const router = Router();
+const router: import("express").Router = Router();
 
-router.get('/', asyncHandler(async (req: Request, res: Response) => {
+router.get('/', asyncHandler(async (_req: Request, res: Response) => {
     const compensationClaim: Array<types.CompensationClaim> = await compensationClaimServices.getAllCompensationClaims();
     res.json(compensationClaim);
 })
@@ -21,7 +23,7 @@ router.post('/', asyncHandler(async (req: Request, res: Response) => {
 router.put('/:id', async (req: Request, res: Response) =>{
     const { id } = req.params;
 
-    if (!id){
+    if (typeof id !== "string" || !id){
         return res.status(400).json({message: "Id is required"});
     }
     const updateCompensationClaim: types.CompensationClaim = await compensationClaimServices.updateCompensationClaim(id, req.body);
@@ -30,7 +32,7 @@ router.put('/:id', async (req: Request, res: Response) =>{
 
 router.get("/:id", async (req: Request, res: Response) => {
     const {id} = req.params;
-    if (!id) {
+    if (typeof id !== "string" || !id) {
         return res.status(400).json({message: "Id is required"});
     }
 

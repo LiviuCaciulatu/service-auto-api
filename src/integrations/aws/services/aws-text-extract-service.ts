@@ -1,12 +1,5 @@
-import path from "path";
-import fs from "fs";
-import pdfjsLib from "pdfjs-dist/legacy/build/pdf";
-import { createCanvas } from "canvas";
 import * as types from "@/integrations/aws/types";
-import {
-    TextractClient,
-    DetectDocumentTextCommand,
-} from "@aws-sdk/client-textract";
+import {TextractClient, DetectDocumentTextCommand} from "@aws-sdk/client-textract";
 
 const textractClient = new TextractClient({
     region: process.env.AWS_REGION || "eu-central-1",

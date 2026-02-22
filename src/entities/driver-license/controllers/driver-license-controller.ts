@@ -1,13 +1,14 @@
 import type {Request, Response} from 'express';
+
 import {Router} from 'express';
 import {asyncHandler} from "@/shared/async-handler";
+
 import * as driverLicenseServices from "@/entities/driver-license/services/driver-license-service";
 import * as types from "@/entities/driver-license/types";
-import * as clientServices from "@/entities/client/services/client-service";
 
-const router = Router();
+const router: import("express").Router = Router();
 
-router.get('/', asyncHandler(async (req: Request, res: Response) => {
+router.get('/', asyncHandler(async (_req: Request, res: Response) => {
     const driverLicense: Array<types.DriverLicense> = await driverLicenseServices.getAllDriverLicenses();
     res.json(driverLicense);
 })
@@ -34,7 +35,7 @@ router.get("/from-file", async (req: Request, res: Response) =>{
 router.put('/:id', async (req: Request, res: Response) =>{
     const { id } = req.params;
 
-    if (!id) {
+    if (typeof id !== "string" || !id) {
         return res.status(400).json({message: "Id is required"});
     }
     const updateDriverLicense: types.DriverLicense = await driverLicenseServices.updateDriverLicense(id, req.body);
@@ -43,7 +44,7 @@ router.put('/:id', async (req: Request, res: Response) =>{
 
 router.get("/:id", async (req: Request, res: Response) => {
     const {id} = req.params;
-    if (!id) {
+    if (typeof id !== "string" || !id) {
         return res.status(400).json({message: "Id is required"});
     }
 

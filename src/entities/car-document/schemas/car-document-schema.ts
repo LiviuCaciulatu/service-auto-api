@@ -1,5 +1,4 @@
 import {z} from 'zod';
-import {asyncHandler} from "@/shared/async-handler";
 
 // defineste schema pentru car document
 export const carDocumentCreateSchema = z.object({

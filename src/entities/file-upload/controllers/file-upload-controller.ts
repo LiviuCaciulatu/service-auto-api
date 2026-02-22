@@ -1,11 +1,13 @@
 import type {Request, Response} from "express";
+
 import {Router} from "express";
 import {asyncHandler} from "@/shared/async-handler";
-import * as service from "@/entities/file-upload/services/file-upload-service";
+
 import * as types from "@/entities/file-upload/types";
+import * as service from "@/entities/file-upload/services/file-upload-service";
 
 // creaza un router pentru file upload
-const router = Router();
+const router: import("express").Router = Router();
 
 // creaza un endpoint pentru upload file
 router.post("/upload",
