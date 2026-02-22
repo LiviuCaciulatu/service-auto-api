@@ -4,8 +4,8 @@ import type {PoolClient} from "pg";
 import { pool } from "@/db";
 
 const MIGRATION_LOCK_KEY = 2147483001;
-const DB_READY_RETRY_ATTEMPTS = 30;
-const DB_READY_RETRY_DELAY_MS = 2000;
+const DB_READY_RETRY_ATTEMPTS = 10;
+const DB_READY_RETRY_DELAY_MS = 1500;
 
 function sleep(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
