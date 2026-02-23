@@ -1,16 +1,10 @@
 # syntax=docker/dockerfile:1.7
 
-FROM node:22-bookworm-slim AS base
+FROM node:22-bookworm-slim AS build
+
 WORKDIR /app
 
-ENV PNPM_HOME="/pnpm"
-ENV PATH="$PNPM_HOME:$PATH"
-
-RUN corepack enable
-
-FROM base AS build
-
-# Native build dependencies for `canvas` during pnpm install.
+# Native build dependencies for `canvas` during npm install.
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3 \
     make \
@@ -23,13 +17,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     librsvg2-dev \
     && rm -rf /var/lib/apt/lists/*
 
-COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile
+COPY package.json package-lock.json ./
+RUN npm ci
 
 COPY tsconfig.json ./
 COPY src ./src
 
-RUN pnpm build && pnpm build:migrate && pnpm prune --prod --ignore-scripts
+RUN npm run build && npm run build:migrate && npm prune --omit=dev
 
 FROM node:22-bookworm-slim AS runtime
 WORKDIR /app
@@ -50,7 +44,7 @@ COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/dist ./dist
 COPY sql ./sql
 COPY docker-entrypoint.sh ./docker-entrypoint.sh
-
+RUN sed -i 's/\r$//' docker-entrypoint.sh
 RUN chmod +x ./docker-entrypoint.sh
 
 EXPOSE 3000

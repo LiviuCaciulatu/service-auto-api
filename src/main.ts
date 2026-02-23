@@ -13,11 +13,20 @@ import compensationClaimController from "@/entities/compensation-claim/controlle
 
 const app = express();
 
+const allowedOrigins = [
+    "http://localhost:5173",
+    "https://d8hj2mro67a3b.cloudfront.net"
+];
+
 app.use(cors({
-    origin: [
-        "http://localhost:5173/",
-        "https://d8hj2mro67a3b.cloudfront.net"
-    ],
+    origin: allowedOrigins,
+    methods: ["GET","POST","PUT","DELETE","OPTIONS"],
+    credentials: true
+}));
+
+app.options("*", cors({
+    origin: allowedOrigins,
+    methods: ["GET","POST","PUT","DELETE","OPTIONS"],
     credentials: true
 }));
 
@@ -29,8 +38,8 @@ app.get("/health", (_req, res) => {
 
 app.use("/clients", clientController);
 app.use("/files", fileUploadController);
-app.use("/carDocuments", carDocumentController);
 app.use("/driverLicenses", driverLicenseController);
+app.use("/carDocuments", carDocumentController);
 app.use("/compensationClaims", compensationClaimController);
 
 app.use((_req, res)=>{
