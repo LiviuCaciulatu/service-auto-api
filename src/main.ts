@@ -1,6 +1,7 @@
 import "@/config/env";
 
 import express from "express";
+import cors from "cors";
 
 import clientController from "@/entities/client/controllers/client-controller";
 import fileUploadController from "@/entities/file-upload/controllers/file-upload-controller";
@@ -11,6 +12,14 @@ import compensationClaimController from "@/entities/compensation-claim/controlle
 
 
 const app = express();
+
+app.use(cors({
+    origin: [
+        "http://localhost:5173/",
+        "https://d8hj2mro67a3b.cloudfront.net"
+    ],
+    credentials: true
+}));
 
 app.use(express.json());
 

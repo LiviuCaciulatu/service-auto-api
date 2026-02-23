@@ -30,6 +30,7 @@
     "@aws-sdk/client-s3": "^3.943.0",
     "@aws-sdk/client-textract": "^3.985.0",
     "canvas": "^3.2.1",
+    "cors": "^2.8.6",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "form-data": "^4.0.5",
@@ -40,6 +41,7 @@
     "zod": "^4.1.12"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.5",
     "@types/multer": "^2.0.0",
     "@types/node": "^24.10.0",
