@@ -15,7 +15,7 @@ const app = express();
 
 const allowedOrigins = [
     "http://localhost:5173",
-    "https://d8hj2mro67a3b.cloudfront.net"
+    "https://www.service-app.cleancodeit.com"
 ];
 
 app.use(cors({
@@ -24,7 +24,7 @@ app.use(cors({
     credentials: true
 }));
 
-app.options("*", cors({
+app.options("/{splat}", cors({
     origin: allowedOrigins,
     methods: ["GET","POST","PUT","DELETE","OPTIONS"],
     credentials: true
