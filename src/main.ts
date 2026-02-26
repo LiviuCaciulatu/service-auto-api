@@ -24,9 +24,10 @@ app.use(cors({
     credentials: true
 }));
 
-app.options("/{splat}", cors({
+app.options("/files/upload", cors({
     origin: allowedOrigins,
-    methods: ["GET","POST","PUT","DELETE","OPTIONS"],
+    methods: ["POST", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true
 }));
 

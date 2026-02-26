@@ -208,88 +208,88 @@ export function parseCarDocument(rawText: string): Partial<carDocumentTypes.CarD
     const result: Partial<carDocumentTypes.CarDocument> = {};
 
     const A = extractPropertyA(lines);
-    if (A) result.property_A = A;
+    if (A) result.property_a = A;
 
     const J = extractPropertyJ(lines);
-    if (J) result.property_J = J;
+    if (J) result.property_j = J;
 
     const D1 = extractPropertyD1(lines);
-    if (D1) result.property_D_1 = D1;
+    if (D1) result.property_d_1 = D1;
 
     const D2 = extractPropertyD2(lines);
-    if (D2) result.property_D_2 = D2;
+    if (D2) result.property_d_2 = D2;
 
     const D3 = extractPropertyD3(lines);
-    if (D3) result.property_D_3 = D3;
+    if (D3) result.property_d_3 = D3;
 
     const E = extractPropertyE(lines);
-    if (E) result.property_E = E;
+    if (E) result.property_e = E;
 
     const K = extractPropertyK(lines);
-    if (K) result.property_K = K;
+    if (K) result.property_k = K;
 
     const C2 = extractC2(lines);
-    if (C2.property_C_2_1) result.property_C_2_1 = C2.property_C_2_1;
-    if (C2.property_C_2_2) result.property_C_2_2 = C2.property_C_2_2;
-    if (C2.property_C_2_3) result.property_C_2_3 = C2.property_C_2_3;
-    if (C2.property_C_2_equals_C_1 !== undefined) result.property_C_2_equals_C_1 = C2.property_C_2_equals_C_1;
+    if (C2.property_C_2_1) result.property_c_2_1 = C2.property_C_2_1;
+    if (C2.property_C_2_2) result.property_c_2_2 = C2.property_C_2_2;
+    if (C2.property_C_2_3) result.property_c_2_3 = C2.property_C_2_3;
+    if (C2.property_C_2_equals_C_1 !== undefined) result.property_c_2_equals_c_1 = C2.property_C_2_equals_C_1;
 
     const C3 = extractC3(lines);
-    if (C3.property_C_3_1) result.property_C_3_1 = C3.property_C_3_1;
-    if (C3.property_C_3_2) result.property_C_3_2 = C3.property_C_3_2;
-    if (C3.property_C_3_3) result.property_C_3_3 = C3.property_C_3_3;
-    if (C3.property_C_3_equals_C_1 !== undefined) result.property_C_3_equals_C_1 = C3.property_C_3_equals_C_1;
+    if (C3.property_C_3_1) result.property_c_3_1 = C3.property_C_3_1;
+    if (C3.property_C_3_2) result.property_c_3_2 = C3.property_C_3_2;
+    if (C3.property_C_3_3) result.property_c_3_3 = C3.property_C_3_3;
+    if (C3.property_C_3_equals_C_1 !== undefined) result.property_c_3_equals_c_1 = C3.property_C_3_equals_C_1;
 
     const B = extractPropertyB(lines);
-    if (B) result.property_B = B;
+    if (B) result.property_b = B;
 
     const H = extractPropertyH(lines);
-    if (H) result.property_H = H;
+    if (H) result.property_h = H;
 
     const I = extractPropertyI(lines);
-    if (I) result.property_I = I;
+    if (I) result.property_i = I;
 
     const I1 = extractPropertyI1(lines);
-    if (I1) result.property_I_1 = I1;
+    if (I1) result.property_i_1 = I1;
 
     const F1 = extractPropertyF1(lines);
-    if (F1) result.property_F_1 = F1;
+    if (F1) result.property_f_1 = F1;
 
     const G = extractPropertyG(lines);
-    if (G) result.property_G = G;
+    if (G) result.property_g = G;
 
     const P1 = extractPropertyP1(lines);
-    if (P1) result.property_P_1 = P1;
+    if (P1) result.property_p_1 = P1;
 
     const P2 = extractPropertyP2(lines);
-    if (P2) result.property_P_2 = P2;
+    if (P2) result.property_p_2 = P2;
 
     const P3 = extractPropertyP3(lines);
-    if (P3) result.property_P_3 = P3;
+    if (P3) result.property_p_3 = P3;
 
     const Q = extractPropertyQ(lines);
-    if (Q) result.property_Q = Q;
+    if (Q) result.property_q = Q;
 
     const R = extractPropertyR(lines);
-    if (R) result.property_R = R;
+    if (R) result.property_r = R;
 
     const S1 = extractPropertyS1(lines);
-    if (S1) result.property_S_1 = S1;
+    if (S1) result.property_s_1 = S1;
 
     const S2 = extractPropertyS2(lines);
-    if (S2) result.property_S_2 = S2;
+    if (S2) result.property_s_2 = S2;
 
     const V7 = extractPropertyV7(lines);
-    if (V7) result.property_V_7 = V7;
+    if (V7) result.property_v_7 = V7;
 
     const V10 = extractPropertyV10(lines);
-    if (V10) result.property_V_10 = V10;
+    if (V10) result.property_v_10 = V10;
 
     const Y = extractPropertyY(lines);
-    if (Y) result.property_Y = Y;
+    if (Y) result.property_y = Y;
 
     const Z = extractPropertyZ(lines);
-    if (Z) result.property_Z = Z;
+    if (Z) result.property_z = Z;
 
     const obs = extractObservatii(lines);
     if (obs) result.observatii = obs;
