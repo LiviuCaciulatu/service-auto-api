@@ -157,3 +157,71 @@ FOREIGN KEY (claim_id) REFERENCES compensation_claims(id) ON DELETE CASCADE;
 
 ALTER TABLE compensated_drivers
 ADD COLUMN IF NOT EXISTS account_holder VARCHAR(50) NOT NULL;
+
+CREATE TABLE IF NOT EXISTS contracte_cesiune_creanta
+(
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    client_id UUID NOT NULL,
+
+    claim_number VARCHAR(20) NOT NULL,
+    claim_date VARCHAR(20) NOT NULL,
+    claimant_name VARCHAR(50) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    cnp VARCHAR(20) NOT NULL,
+    contract_value VARCHAR(15) NOT NULL,
+    insurance_company VARCHAR(50) NOT NULL,
+    insurance_company_address VARCHAR(255) NOT NULL,
+    insurance_company_cui VARCHAR(20) NOT NULL,
+    insurance_company_j VARCHAR(20) NOT NULL,
+    complaint_number VARCHAR(20) NOT NULL,
+    vehicle_registration_number VARCHAR(15) NOT NULL,
+    invoice_number VARCHAR(20) NOT NULL,
+    invoice_value VARCHAR(15) NOT NULL,
+    cedent VARCHAR(50) NOT NULL,
+    CESIONAR VARCHAR(50) NOT NULL,
+    administrator VARCHAR(50),
+
+    created_at TIMESTAMPTZ DEFAULT NOW()
+)
+
+ALTER TABLE contracte_cesiune_creanta
+DROP CONSTRAINT IF EXISTS fk_contracte_cesiune_creanta_client;
+
+ALTER TABLE contracte_cesiune_creanta
+ADD CONSTRAINT fk_contracte_cesiune_creanta_client
+FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE;
+
+CREATE TABLE IF NOT EXISTS contract_inlocuire_temporara
+(
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    client_id UUID NOT NULL,
+
+    contract_number VARCHAR(20) NOT NULL,
+    contract_date VARCHAR(20) NOT NULL,
+    client_name VARCHAR(50) NOT NULL,
+    representing VARCHAR(50) NOT NULL,
+    cui VARCHAR(20) NOT NULL,
+    phone_number VARCHAR(20) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    damaged_vehicle_make VARCHAR(50) NOT NULL,
+    damaged_vehicle_registration_number: VARCHAR(20) NOT NULL,
+    damaged_vehicle_year: VARCHAR(6) NOT NULL,
+    damaged_vehicle_vin: VARCHAR(25) NOT NULL,
+    damaged_vehicle_type: VARCHAR(25) NOT NULL,
+    complaint_number: VARCHAR(20) NOT NULL,
+    replacement_vehicle_make: VARCHAR(50) NOT NULL;
+    replacement_vehicle_registration_number: VARCHAR(20) NOT NULL;
+    replacement_vehicle_year: VARCHAR(6) NOT NULL;
+    replacement_vehicle_delivery_date: VARCHAR(20) NOT NULL;
+    replacement_vehicle_return_date: VARCHAR(20) NOT NULL;
+    price: VARCHAR(15) NOT NULL;
+
+    created_at TIMESTAMPTZ DEFAULT NOW()
+)
+
+ALTER TABLE contract_inlocuire_temporara
+DROP CONSTRAINT IF EXISTS fk_contract_inlocuire_temporara_client;
+
+ALTER TABLE contract_inlocuire_temporara
+ADD CONSTRAINT fk_contract_inlocuire_temporara_client
+FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE;
