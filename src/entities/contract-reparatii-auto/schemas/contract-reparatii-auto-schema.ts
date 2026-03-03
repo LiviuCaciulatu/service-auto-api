@@ -1,0 +1,38 @@
+import {z} from 'zod'
+
+export const ContractReparatiiAutoCreateSchema = z.object({
+    client_id: z.string().min(1),
+    contract_number: z.string().min(1),
+    contract_date: z.string().min(1),
+    client_name: z.string().min(1),
+    client_address: z.string().min(1),
+    vehicle_make_model: z.string().min(1),
+    vehicle_registration_number: z.string().min(1),
+    vehicle_vin: z.string().min(1),
+    client_requested_works: z.string(),
+    reinspections: z.string(),
+    execution_period: z.string().min(1),
+    driver_belts: z.string(),
+    brake_lines: z.string(),
+    cooling_pipes: z.string(),
+    fuel_leaks: z.string(),
+    brake_pads: z.string(),
+    headlights: z.string(),
+    engine: z.string(),
+    gearbox: z.string(),
+    brake_fluid: z.string(),
+    washer_fluid: z.string(),
+    brake_test: z.string(),
+    exhaust_emissions: z.string(),
+    wheel_alignment: z.string(),
+    ac: z.string(),
+    central_locking: z.string(),
+    battery_charging: z.string(),
+    test_drive: z.string(),
+    rust: z.string(),
+    looseness: z.string(),
+    paint_color: z.string(),
+    paint_gloss: z.string(),
+})
+
+export const ContractReparatiiAutoUpdateSchema = ContractReparatiiAutoCreateSchema;

@@ -11,6 +11,7 @@ import {errorMiddleware} from "@/config/error-middleware";
 import compensationClaimController from "@/entities/compensation-claim/controllers/compensation-claim-controller";
 import contractCesiuneCreantaController from "@/entities/contract-cesiune-creanta/controllers/contract-cesiune-creanta-controller";
 import contractInlocuireTemporaraController from "@/entities/contract-inlocuire-temporara/controllers/contract-inlocuire-temporara-controller";
+import contractReparatiiAutoController from "@/entities/contract-reparatii-auto/controllers/contract-reparatii-auto-controller";
 
 
 const app = express();
@@ -46,6 +47,7 @@ app.use("/carDocuments", carDocumentController);
 app.use("/compensationClaims", compensationClaimController);
 app.use("/contractCesiuneCreanta", contractCesiuneCreantaController);
 app.use('/contractInlocuireTemporara', contractInlocuireTemporaraController);
+app.use('/contractReparatiiAuto', contractReparatiiAutoController);
 
 app.use((_req, res)=>{
     res.status(404).json({message: "not found", code: 404})

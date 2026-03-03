@@ -178,11 +178,11 @@ CREATE TABLE IF NOT EXISTS contracte_cesiune_creanta
     invoice_number VARCHAR(20) NOT NULL,
     invoice_value VARCHAR(15) NOT NULL,
     cedent VARCHAR(50) NOT NULL,
-    CESIONAR VARCHAR(50) NOT NULL,
+    cesionar VARCHAR(50) NOT NULL,
     administrator VARCHAR(50),
 
     created_at TIMESTAMPTZ DEFAULT NOW()
-)
+);
 
 ALTER TABLE contracte_cesiune_creanta
 DROP CONSTRAINT IF EXISTS fk_contracte_cesiune_creanta_client;
@@ -204,24 +204,71 @@ CREATE TABLE IF NOT EXISTS contract_inlocuire_temporara
     phone_number VARCHAR(20) NOT NULL,
     address VARCHAR(255) NOT NULL,
     damaged_vehicle_make VARCHAR(50) NOT NULL,
-    damaged_vehicle_registration_number: VARCHAR(20) NOT NULL,
-    damaged_vehicle_year: VARCHAR(6) NOT NULL,
-    damaged_vehicle_vin: VARCHAR(25) NOT NULL,
-    damaged_vehicle_type: VARCHAR(25) NOT NULL,
-    complaint_number: VARCHAR(20) NOT NULL,
-    replacement_vehicle_make: VARCHAR(50) NOT NULL;
-    replacement_vehicle_registration_number: VARCHAR(20) NOT NULL;
-    replacement_vehicle_year: VARCHAR(6) NOT NULL;
-    replacement_vehicle_delivery_date: VARCHAR(20) NOT NULL;
-    replacement_vehicle_return_date: VARCHAR(20) NOT NULL;
-    price: VARCHAR(15) NOT NULL;
+    damaged_vehicle_registration_number VARCHAR(20) NOT NULL,
+    damaged_vehicle_year VARCHAR(6) NOT NULL,
+    damaged_vehicle_vin VARCHAR(25) NOT NULL,
+    damaged_vehicle_type VARCHAR(25) NOT NULL,
+    complaint_number VARCHAR(20) NOT NULL,
+    replacement_vehicle_make VARCHAR(50) NOT NULL,
+    replacement_vehicle_registration_number VARCHAR(20) NOT NULL,
+    replacement_vehicle_year VARCHAR(6) NOT NULL,
+    replacement_vehicle_delivery_date VARCHAR(20) NOT NULL,
+    replacement_vehicle_return_date VARCHAR(20) NOT NULL,
+    price VARCHAR(15) NOT NULL,
 
     created_at TIMESTAMPTZ DEFAULT NOW()
-)
+);
 
 ALTER TABLE contract_inlocuire_temporara
 DROP CONSTRAINT IF EXISTS fk_contract_inlocuire_temporara_client;
 
 ALTER TABLE contract_inlocuire_temporara
 ADD CONSTRAINT fk_contract_inlocuire_temporara_client
+FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE;
+
+CREATE TABLE IF NOT EXISTS contract_reparatii_auto
+(
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    client_id UUID NOT NULL,
+
+    contract_number VARCHAR(20) NOT NULL,
+    contract_date VARCHAR(20) NOT NULL,
+    client_name VARCHAR(50) NOT NULL,
+    client_address VARCHAR(255) NOT NULL,
+    vehicle_make_model VARCHAR(50) NOT NULL,
+    vehicle_registration_number VARCHAR(20) NOT NULL,
+    vehicle_vin VARCHAR(20) NOT NULL,
+    client_requested_works VARCHAR(255) NOT NULL,
+    reinspections VARCHAR(255) NOT NULL,
+    execution_period VARCHAR(10) NOT NULL,
+    driver_belts VARCHAR(20),
+    brake_lines VARCHAR(20),
+    cooling_pipes VARCHAR(20),
+    fuel_leaks VARCHAR(20),
+    brake_pads VARCHAR(20),
+    headlights VARCHAR(20),
+    engine VARCHAR(20),
+    gearbox VARCHAR(20),
+    brake_fluid VARCHAR(20),
+    washer_fluid VARCHAR(20),
+    brake_test VARCHAR(20),
+    exhaust_emissions VARCHAR(20),
+    wheel_alignment VARCHAR(20),
+    ac VARCHAR(20),
+    central_locking VARCHAR(20),
+    battery_charging VARCHAR(20),
+    test_drive VARCHAR(20),
+    rust VARCHAR(20),
+    looseness VARCHAR(20),
+    paint_color VARCHAR(20),
+    paint_gloss VARCHAR(20),
+
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+ALTER TABLE contract_reparatii_auto
+DROP CONSTRAINT IF EXISTS fk_contract_reparatii_auto_client;
+
+ALTER TABLE contract_reparatii_auto
+ADD CONSTRAINT fk_contract_reparatii_auto_client
 FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE;
