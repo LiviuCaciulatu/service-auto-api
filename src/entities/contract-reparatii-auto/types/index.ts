@@ -5,11 +5,13 @@ export type ContractReparatiiAutoCreateSchema = z.infer<typeof schemas.ContractR
 export type ContractReparatiiAutoUpdateSchema = z.infer<typeof schemas.ContractReparatiiAutoUpdateSchema>
 
 export type ContractReparatiiAuto = {
+    id?: string;
     client_id: string;
     contract_number: string;
     contract_date: string;
     client_name: string;
     client_address: string;
+    client_phone: string;
     vehicle_make_model: string;
     vehicle_registration_number: string;
     vehicle_vin: string;

@@ -6,6 +6,7 @@ export const ContractReparatiiAutoCreateSchema = z.object({
     contract_date: z.string().min(1),
     client_name: z.string().min(1),
     client_address: z.string().min(1),
+    client_phone: z.string(),
     vehicle_make_model: z.string().min(1),
     vehicle_registration_number: z.string().min(1),
     vehicle_vin: z.string().min(1),

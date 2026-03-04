@@ -7,7 +7,7 @@ export const ContractCesiuneCreantaCreateSchema = z.object({
     claimant_name: z.string().min(1),
     address: z.string().min(1),
     cnp: z.string().min(1),
-    value: z.string().min(1),
+    contract_value: z.string().min(1),
     insurance_company: z.string().min(1),
     insurance_company_address: z.string().min(1),
     insurance_company_cui: z.string().min(1),

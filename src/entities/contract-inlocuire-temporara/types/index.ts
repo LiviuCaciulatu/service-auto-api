@@ -13,6 +13,7 @@ export type ContractInlocuireTemporara = {
     representing: string;
     cui: string;
     phone_number: string;
+    email: string;
     address: string;
     damaged_vehicle_make: string;
     damaged_vehicle_registration_number: string;
@@ -25,5 +26,7 @@ export type ContractInlocuireTemporara = {
     replacement_vehicle_year: string;
     replacement_vehicle_delivery_date: string;
     replacement_vehicle_return_date: string;
+    vehicle_returned_date: string | null;
+    return_condition: string | null;
     price: string;
 }
