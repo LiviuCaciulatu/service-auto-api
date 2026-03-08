@@ -1,0 +1,38 @@
+import {z} from 'zod'
+
+export const AvizareAllianzTiriacSchemaCreateSchema = z.object({
+    client_id: z.uuidv4(),
+    complaint_number: z.string().min(1),
+    claimant_name: z.string().min(1),
+    claimant_email: z.string().min(1),
+    claimant_mobile_phone: z.string().min(1),
+    claimant_landline_phone: z.string().min(1),
+    representing_name: z.string().min(1),
+    incident_date: z.string().min(1),
+    incident_hour: z.string().min(1),
+    location: z.string().min(1),
+    vehicle_make: z.string().min(1),
+    registration_number: z.string().min(1),
+    vin: z.string().min(1),
+    owned_by: z.string().min(1),
+    casco_number: z.string().min(1),
+    insurance_company: z.string().min(1),
+    parked_at: z.boolean(),
+    driven_by: z.string().min(1),
+    material_damage: z.boolean(),
+    injured: z.boolean(),
+    name_of_injured: z.string().min(1),
+    party_responsible: z.string().min(1),
+    party_responsible_vehicle_make: z.string().min(1),
+    party_responsible_registration_number: z.string().min(1),
+    party_responsible_rca: z.string().min(1),
+    party_responsible_insurance_company: z.string().min(1),
+    diagram: z.string().min(1),
+    description: z.string().min(1),
+    casco: z.boolean(),
+    rcs: z.boolean(),
+    date: z.string().min(1),
+    signature: z.string().min(1),
+})
+
+export const  AvizareAllianzTiriacSchemaUpdateSchema = AvizareAllianzTiriacSchemaCreateSchema;
