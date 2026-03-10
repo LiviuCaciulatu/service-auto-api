@@ -1,6 +1,6 @@
 import {z} from 'zod'
 
-export const AvizareAllianzTiriacSchemaCreateSchema = z.object({
+export const AvizareAllianzTiriacCreateSchema = z.object({
     client_id: z.uuidv4(),
     complaint_number: z.string(),
     claimant_name: z.string(),
@@ -35,4 +35,4 @@ export const AvizareAllianzTiriacSchemaCreateSchema = z.object({
     signature: z.string(),
 })
 
-export const  AvizareAllianzTiriacSchemaUpdateSchema = AvizareAllianzTiriacSchemaCreateSchema;
+export const  AvizareAllianzTiriacUpdateSchema = AvizareAllianzTiriacCreateSchema;

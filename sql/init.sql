@@ -288,3 +288,48 @@ ADD COLUMN IF NOT EXISTS client_phone VARCHAR(30) NOT NULL DEFAULT '';
 ALTER TABLE contract_reparatii_auto
 ADD CONSTRAINT fk_contract_reparatii_auto_client
 FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE;
+
+CREATE TABLE IF NOT EXISTS avizare_allianz_tiriac
+(
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    client_id UUID NOT NULL,
+    complaint_number VARCHAR(50) NOT NULL,
+    claimant_name VARCHAR(100) NOT NULL,
+    claimant_email VARCHAR(100),
+    claimant_mobile_phone VARCHAR(20),
+    claimant_landline_phone VARCHAR(20),
+    representing_name VARCHAR(100),
+    incident_date VARCHAR(20) NOT NULL,
+    incident_hour VARCHAR(20),
+    location VARCHAR(150),
+    vehicle_make VARCHAR(50),
+    registration_number VARCHAR(20),
+    vin VARCHAR(50),
+    owned_by VARCHAR(100),
+    casco_number VARCHAR(50),
+    insurance_company VARCHAR(100),
+    parked_at BOOLEAN DEFAULT FALSE,
+    driven_by VARCHAR(100),
+    material_damage BOOLEAN DEFAULT FALSE,
+    injured BOOLEAN DEFAULT FALSE,
+    name_of_injured VARCHAR(100),
+    party_responsible VARCHAR(100),
+    party_responsible_vehicle_make VARCHAR(50),
+    party_responsible_registration_number VARCHAR(20),
+    party_responsible_rca VARCHAR(50),
+    party_responsible_insurance_company VARCHAR(100),
+    diagram TEXT,
+    description TEXT,
+    casco VARCHAR(50),
+    rcs VARCHAR(50),
+    date VARCHAR(20),
+    signature TEXT
+    created_at TIMESTAMPTZ DEFAULT NOW()
+)
+
+ALTER TABLE avizare_allianz_tiriac
+DROP CONSTRAINT IF EXISTS fk_avizare_allianz_tiriac_client;
+
+ALTER TABLE avizare_allianz_tiriac
+ADD CONSTRAINT fk_avizare_allianz_tiriac_client
+FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE;

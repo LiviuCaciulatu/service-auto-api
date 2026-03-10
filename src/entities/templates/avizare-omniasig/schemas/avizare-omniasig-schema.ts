@@ -1,6 +1,6 @@
 import {z} from 'zod'
 
-export const AvizareOmniasigSchemaCreateSchema = z.object({
+export const AvizareOmniasigCreateSchema = z.object({
     client_id: z.uuidv4(),
     claimant_name: z.string(),
     claimant_birth_date: z.string(),
@@ -50,9 +50,9 @@ export const AvizareOmniasigSchemaCreateSchema = z.object({
     other_damaged_vehicles: z.boolean(),
     damaged_vehicles_number: z.string(),
     other_damages: z.string(),
-    other_vechicle_driver: z.string(),
+    other_vehicle_driver: z.string(),
     diagram: z.string(),
-    owner_permision: z.boolean(),
+    owner_permission: z.boolean(),
     compensation_received: z.boolean(),
     substance_use: z.boolean(),
     preexisting_damage: z.boolean(),
@@ -61,4 +61,4 @@ export const AvizareOmniasigSchemaCreateSchema = z.object({
     signature: z.string(),
 })
 
-export const  AvizareOmniasigSchemaUpdateSchema = AvizareOmniasigSchemaCreateSchema;
+export const  AvizareOmniasigUpdateSchema = AvizareOmniasigCreateSchema;

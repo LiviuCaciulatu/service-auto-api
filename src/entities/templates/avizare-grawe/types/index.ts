@@ -1,0 +1,88 @@
+import {z} from 'zod'
+import * as schemas from '@/entities/templates/avizare-grawe/schemas/avizare-grawe-schema';
+
+export type AvizareGraweCreateSchema = z.infer<typeof schemas.AvizareGraweSchemaCreateSchema>
+export type AvizareGraweUpdateSchema = z.infer<typeof schemas.AvizareGraweSchemaUpdateSchema>
+
+export type AvizareGrawe = {
+    id: string;
+    client_id: string;
+    existing_damages: string;
+    claim_date: string;
+    claim_time: string;
+    inspector_signature: string;
+    claimant_signature: string;
+    claimant_name: string;
+    claimant_cnp: string;
+    claimant_phone: string;
+    claimant_landline: string;
+    claimant_email: string;
+    claimant_birthplace: string;
+    claimant_citizenship: string;
+    claimant_id_series: string;
+    claimant_id_number: string;
+    claimant_id_issued_by: string;
+    claimant_address: string;
+    claimant_license_category: string;
+    claimant_license_number: string;
+    claimant_license_issued_by: string;
+    claimant_license_issued_date: string;
+    claimant_license_experience: string;
+    claimant_profession: string;
+    claimant_employer: string;
+    claimant_employer_address: string;
+    claimant_declaration: string;
+    incident_date: string;
+    incident_time: string;
+    vehicle_registration_number: string;
+    vehicle_make: string;
+    vehicle_color: string;
+    vehicle_owner: string;
+    incident_location: string;
+    incident_street: string;
+    incident_direction_from: string;
+    incident_direction_to: string;
+    incident_place: string;
+    incident_intersection: string;
+    incident_outside_of: string;
+    incident_highway: string;
+    vehicle_damages: string;
+    substance_use: boolean;
+    other_damages: boolean;
+    other_damages_description: string;
+    police_investigation: boolean;
+    existing_report: boolean;
+    police_section: string;
+    theft_date: string;
+    theft_report_proof_number: string;
+    theft_report_date: string;
+    date: string;
+    signature: string;
+    existing_rca: boolean;
+    existing_rca_number: string;
+    existing_casco: boolean;
+    existing_casco_number: string;
+    at_fault_person_name: string;
+    at_fault_vehicle_make: string;
+    at_fault_vehicle_model: string;
+    at_fault_insurance_company: string;
+    at_fault_insurance_policty_series: string;
+    at_fault_insurance_policy_number: string;
+    at_fault_insurance_policy_start_date: string;
+    at_fault_insurance_policy_end_date: string;
+    lighting_conditions: string;
+    road_conditions: string;
+    weather_conditions: string;
+    road_surface_type: string;
+    vehicle_category: string;
+    diagram: string;
+    other_optional_insurance: boolean;
+    claimed_compensation_other_insurer: boolean;
+    received_compensation_other_insurer: boolean;
+    other_policy_number: string;
+    other_insurance_company: string;
+    other_policy_valid_from: string;
+    other_policy_valid_to: string;
+    repair_authorisation_series: string;
+    repair_authorisation_number: string;
+}
