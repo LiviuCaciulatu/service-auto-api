@@ -61,7 +61,8 @@ export type AvizareOmniasig = {
     compensation_received: boolean;
     substance_use: boolean;
     preexisting_damage: boolean;
-    preexisting_damage_description: boolean;
+    preexisting_damage_description: string;
     insurance_declaration: boolean;
     signature: string;
+    created_at: string;
 }

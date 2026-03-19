@@ -1,8 +1,8 @@
 import {z} from 'zod'
 import * as schemas from '@/entities/templates/avizare-generali/schemas/avizare-generali-schema';
 
-export type AvizareGeneraliCreateSchema = z.infer<typeof schemas.AvizareGeneraliSchemaCreateSchema>
-export type AvizareGeneraliUpdateSchema = z.infer<typeof schemas.AvizareGeneraliSchemaUpdateSchema>
+export type AvizareGeneraliCreateSchema = z.infer<typeof schemas.AvizareGeneraliCreateSchema>
+export type AvizareGeneraliUpdateSchema = z.infer<typeof schemas.AvizareGeneraliUpdateSchema>
 
 export type AvizareGenerali = {
     id: string;
@@ -32,4 +32,5 @@ export type AvizareGenerali = {
     diagram_at_time_of_incident: string;
     diagram_after: string;
     claim_date: string;
+    created_at: string;
 }

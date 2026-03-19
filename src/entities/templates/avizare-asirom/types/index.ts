@@ -1,13 +1,13 @@
 import {z} from "zod";
 import * as schemas from "@/entities/templates/avizare-asirom/schemas/avizare-asirom-schema";
 
-export type AvizareAsiromCreateSchema = z.infer<typeof  schemas.avizareAsiromCreateSchema>
-export type AvizareAsiromUpdateSchema = z.infer<typeof  schemas.avizareAsiromUpdateSchema>
+export type AvizareAsiromCreateSchema = z.infer<typeof  schemas.AvizareAsiromCreateSchema>
+export type AvizareAsiromUpdateSchema = z.infer<typeof  schemas.AvizareAsiromUpdateSchema>
 
 export type AvizareAsirom = {
     id: string;
     client_id: string;
-    claimant_name:string;
+    claimant_name: string;
     claimant_birth_date: string;
     claimant_address: string;
     claimant_cnp: string;
@@ -55,13 +55,14 @@ export type AvizareAsirom = {
     other_damaged_vehicles: boolean;
     damaged_vehicles_number: string;
     other_damages: string;
-    other_vechicle_driver: string;
+    other_vehicle_driver: string;
     diagram: string;
-    owner_permision: boolean;
-    compensation_received: boolean
+    owner_permission: boolean;
+    compensation_received: boolean;
     substance_use: boolean;
     preexisting_damage: boolean;
     preexisting_damage_description: string;
     insurance_declaration: boolean;
     signature: string;
+    created_at: string;
 }

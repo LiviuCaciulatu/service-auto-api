@@ -1,8 +1,8 @@
 import {z} from 'zod'
 import * as schemas from '@/entities/templates/avizare-eazy/schemas/avizare-eazy-schema';
 
-export type AvizareEazyCreateSchema = z.infer<typeof schemas.AvizareEazySchemaCreateSchema>
-export type AvizareEazyUpdateSchema = z.infer<typeof schemas.AvizareEazySchemaUpdateSchema>
+export type AvizareEazyCreateSchema = z.infer<typeof schemas.AvizareEazyCreateSchema>
+export type AvizareEazyUpdateSchema = z.infer<typeof schemas.AvizareEazyUpdateSchema>
 
 export type AvizareEazy = {
     id: string;
@@ -56,6 +56,6 @@ export type AvizareEazy = {
     at_fault_person_email: string;
     at_fault_vehicle_registration_number: string;
     other_details: string;
-    date: string;
+    claim_date: string;
     signature: string;
 }

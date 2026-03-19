@@ -1,6 +1,6 @@
 import {z} from 'zod'
 
-export const AvizareEazySchemaCreateSchema = z.object({
+export const AvizareEazyCreateSchema = z.object({
     client_id: z.uuidv4(),
     claimant_name: z.string(),
     claimant_father_name: z.string(),
@@ -51,8 +51,8 @@ export const AvizareEazySchemaCreateSchema = z.object({
     at_fault_person_email: z.string(),
     at_fault_vehicle_registration_number: z.string(),
     other_details: z.string(),
-    date: z.string(),
+    claim_date: z.string(),
     signature: z.string(),
 })
 
-export const  AvizareEazySchemaUpdateSchema = AvizareEazySchemaCreateSchema;
+export const  AvizareEazyUpdateSchema = AvizareEazyCreateSchema;

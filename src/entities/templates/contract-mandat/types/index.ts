@@ -26,4 +26,5 @@ export type ContractMandat = {
     contract_date: string;
     pricipal_signature: string;
     agent_signature: string;
+    created_at: string
 }

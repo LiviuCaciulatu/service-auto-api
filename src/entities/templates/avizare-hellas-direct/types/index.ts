@@ -1,15 +1,15 @@
 import {z} from 'zod'
 import * as schemas from '@/entities/templates/avizare-hellas-direct/schemas/avizare-hellas-direct-schema';
 
-export type AvizareHellasDirectCreateSchema = z.infer<typeof schemas.AvizareHellasDirectSchemaCreateSchema>
-export type AvizareHellasDirectUpdateSchema = z.infer<typeof schemas.AvizareHellasDirectSchemaUpdateSchema>
+export type AvizareHellasDirectCreateSchema = z.infer<typeof schemas.AvizareHellasDirectCreateSchema>
+export type AvizareHellasDirectUpdateSchema = z.infer<typeof schemas.AvizareHellasDirectUpdateSchema>
 
 export type AvizareHellasDirect = {
     id: string;
     client_id: string;
     existing_damages: string;
-    claim_date: string;
-    claim_time: string;
+    presentation_date: string;
+    presentation_time: string;
     inspector_signature: string;
     claimant_signature: string;
     claimant_name: string;
@@ -56,7 +56,7 @@ export type AvizareHellasDirect = {
     theft_date: string;
     theft_report_proof_number: string;
     theft_report_date: string;
-    date: string;
+    claim_date: string;
     signature: string;
     existing_rca: boolean;
     existing_rca_number: string;
@@ -83,4 +83,5 @@ export type AvizareHellasDirect = {
     other_policy_valid_to: string;
     repair_authorisation_series: string;
     repair_authorisation_number: string;
+    created_at: string;
 }

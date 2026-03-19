@@ -1,8 +1,8 @@
 import {z} from "zod";
 import * as schemas from "@/entities/templates/avizare-axeria/schemas/avizare-axeria-schema";
 
-export type AvizareAxeriaCreateSchema = z.infer<typeof schemas.AvizareAxeriaSchemaCreateSchema>
-export type AvizareAxeriaUpdateSchema = z.infer<typeof schemas.AvizareAxeriaSchemaUpdateSchema>
+export type AvizareAxeriaCreateSchema = z.infer<typeof schemas.AvizareAxeriaCreateSchema>
+export type AvizareAxeriaUpdateSchema = z.infer<typeof schemas.AvizareAxeriaUpdateSchema>
 
 export type AvizareAxeria = {
     id: string;
@@ -99,6 +99,7 @@ export type AvizareAxeria = {
     incident_responsible_rca_number: string;
     incident_responsible_rca_validity_start_date: string;
     incident_responsible_rca_validity_end_date: string;
-    date: string;
+    claim_date: string;
     signature: string;
+    created_at: string;
 }

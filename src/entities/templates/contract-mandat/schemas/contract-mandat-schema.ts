@@ -20,7 +20,8 @@ export const ContractMandatCreateSchema = z.object({
     incident_date: z.string(),
     contract_date: z.string(),
     pricipal_signature: z.string(),
-    agent_signature: z.string()
+    agent_signature: z.string(),
+    created_at: z.string()
 })
 
 export const ContractMandatUpdateSchema = ContractMandatCreateSchema

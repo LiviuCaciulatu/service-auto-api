@@ -1,6 +1,6 @@
 import {z} from 'zod'
 
-export const AvizareGeneraliSchemaCreateSchema = z.object({
+export const AvizareGeneraliCreateSchema = z.object({
     client_id: z.uuidv4(),
     claimant_name: z.string(),
     claimant_cnp: z.string(),
@@ -27,6 +27,7 @@ export const AvizareGeneraliSchemaCreateSchema = z.object({
     diagram_at_time_of_incident: z.string(),
     diagram_after: z.string(),
     claim_date: z.string(),
+    created_at: z.string()
 })
 
-export const  AvizareGeneraliSchemaUpdateSchema = AvizareGeneraliSchemaCreateSchema;
+export const  AvizareGeneraliUpdateSchema = AvizareGeneraliCreateSchema;

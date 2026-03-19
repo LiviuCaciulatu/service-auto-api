@@ -49,6 +49,6 @@ export type AvizareGroupama = {
     at_fault_vehicle_rca_insurer: string;
     at_fault_vehicle_optional_insurance: boolean;
     agree_pre_reparir_payment: boolean;
-    date: string;
+    claim_date: string;
     signature: string;
 }

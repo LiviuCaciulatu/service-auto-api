@@ -59,6 +59,7 @@ export const AvizareOmniasigCreateSchema = z.object({
     preexisting_damage_description: z.string(),
     insurance_declaration: z.boolean(),
     signature: z.string(),
+    created_at: z.string()
 })
 
 export const  AvizareOmniasigUpdateSchema = AvizareOmniasigCreateSchema;

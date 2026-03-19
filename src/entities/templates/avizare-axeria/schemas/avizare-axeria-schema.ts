@@ -1,6 +1,6 @@
 import {z} from 'zod'
 
-export const AvizareAxeriaSchemaCreateSchema = z.object({
+export const AvizareAxeriaCreateSchema = z.object({
     client_id: z.uuidv4(),
     claim_number: z.string(),
     existing_damage: z.string(),
@@ -94,8 +94,9 @@ export const AvizareAxeriaSchemaCreateSchema = z.object({
     incident_responsible_rca_number: z.string(),
     incident_responsible_rca_validity_start_date: z.string(),
     incident_responsible_rca_validity_end_date: z.string(),
-    date: z.string(),
+    claim_date: z.string(),
     signature: z.string(),
+    created_at: z.string(),
 })
 
-export const  AvizareAxeriaSchemaUpdateSchema = AvizareAxeriaSchemaCreateSchema;
+export const  AvizareAxeriaUpdateSchema = AvizareAxeriaCreateSchema;

@@ -1,15 +1,15 @@
 import {z} from 'zod'
 import * as schemas from '@/entities/templates/avizare-grawe/schemas/avizare-grawe-schema';
 
-export type AvizareGraweCreateSchema = z.infer<typeof schemas.AvizareGraweSchemaCreateSchema>
-export type AvizareGraweUpdateSchema = z.infer<typeof schemas.AvizareGraweSchemaUpdateSchema>
+export type AvizareGraweCreateSchema = z.infer<typeof schemas.AvizareGraweCreateSchema>
+export type AvizareGraweUpdateSchema = z.infer<typeof schemas.AvizareGraweUpdateSchema>
 
 export type AvizareGrawe = {
     id: string;
     client_id: string;
     existing_damages: string;
-    claim_date: string;
-    claim_time: string;
+    presentation_date: string;
+    presentation_time: string;
     inspector_signature: string;
     claimant_signature: string;
     claimant_name: string;
@@ -56,7 +56,7 @@ export type AvizareGrawe = {
     theft_date: string;
     theft_report_proof_number: string;
     theft_report_date: string;
-    date: string;
+    claim_date: string;
     signature: string;
     existing_rca: boolean;
     existing_rca_number: string;

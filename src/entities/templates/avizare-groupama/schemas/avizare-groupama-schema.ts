@@ -44,7 +44,7 @@ export const avizareGroupamaCreateSchema = z.object({
     at_fault_vehicle_rca_insurer: z.string(),
     at_fault_vehicle_optional_insurance: z.boolean(),
     agree_pre_reparir_payment: z.boolean(),
-    date: z.string(),
+    claim_date: z.string(),
     signature: z.string()
 })
 export const avizareGroupamaUpdateSchema = avizareGroupamaCreateSchema;

@@ -13,7 +13,17 @@ import contractCesiuneCreantaController from "@/entities/contract-cesiune-creant
 import contractInlocuireTemporaraController from "@/entities/contract-inlocuire-temporara/controllers/contract-inlocuire-temporara-controller";
 import contractReparatiiAutoController from "@/entities/contract-reparatii-auto/controllers/contract-reparatii-auto-controller";
 import avizareAllianzTiriacController from "@/entities/templates/avizare-allianz-tiriac/controllers/avizare-allianz-tiriac-controller";
-
+import avizareAsiromController from "@/entities/templates/avizare-asirom/controllers/avizare-asirom-controller";
+import avizareAxeriaController from "@/entities/templates/avizare-axeria/controllers/avizare-axeria-controller";
+import avizareDallbogController from "@/entities/templates/avizare-dallbog/controllers/avizare-dallbog-controller";
+import avizareEazyController from "@/entities/templates/avizare-eazy/controllers/avizare-eazy-controller";
+import avizareOmniasigController from "@/entities/templates/avizare-omniasig/controllers/avizare-omniasig-controller";
+import avizareGeneraliController from "@/entities/templates/avizare-generali/controllers/avizare-generali-controller";
+import avizareGraweController from "@/entities/templates/avizare-grawe/controllers/avizare-grawe-controller";
+import avizareGroupamaController from "@/entities/templates/avizare-groupama/controllers/avizare-groupama-controller";
+import avizareHellasDirectController from "@/entities/templates/avizare-hellas-direct/controllers/avizare-hellas-direct-controller";
+import contractMandatController from "@/entities/templates/contract-mandat/controllers/contract-mandat-controller";
+import imputernicireController from "@/entities/templates/imputernicire/controllers/imputernicire-controller";
 
 const app = express();
 
@@ -50,6 +60,17 @@ app.use("/contractCesiuneCreanta", contractCesiuneCreantaController);
 app.use('/contractInlocuireTemporara', contractInlocuireTemporaraController);
 app.use('/contractReparatiiAuto', contractReparatiiAutoController);
 app.use('/avizareAllianzTiriac', avizareAllianzTiriacController);
+app.use("/avizareAsirom", avizareAsiromController);
+app.use("/avizareOmniasig", avizareOmniasigController);
+app.use("/avizareGenerali", avizareGeneraliController);
+app.use("/avizareGrawe", avizareGraweController);
+app.use("/avizareAxeria", avizareAxeriaController);
+app.use("/avizareDallbog", avizareDallbogController);
+app.use("/avizareEazy", avizareEazyController);
+app.use("/avizareGroupama", avizareGroupamaController);
+app.use("/avizareHellasDirect", avizareHellasDirectController);
+app.use("/contractMandat", contractMandatController);
+app.use("/imputernicire", imputernicireController);
 
 app.use((_req, res)=>{
     res.status(404).json({message: "not found", code: 404})

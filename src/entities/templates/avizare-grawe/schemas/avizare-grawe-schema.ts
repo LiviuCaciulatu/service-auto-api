@@ -1,10 +1,10 @@
 import {z} from 'zod'
 
-export const AvizareGraweSchemaCreateSchema = z.object({
+export const AvizareGraweCreateSchema = z.object({
     client_id: z.uuidv4(),
     existing_damages: z.string(),
-    claim_date: z.string(),
-    claim_time: z.string(),
+    presentation_date: z.string(),
+    presentation_time: z.string(),
     inspector_signature: z.string(),
     claimant_signature: z.string(),
     claimant_name: z.string(),
@@ -51,7 +51,7 @@ export const AvizareGraweSchemaCreateSchema = z.object({
     theft_date: z.string(),
     theft_report_proof_number: z.string(),
     theft_report_date: z.string(),
-    date: z.string(),
+    claim_date: z.string(),
     signature: z.string(),
     existing_rca: z.boolean(),
     existing_rca_number: z.string(),
@@ -82,4 +82,4 @@ export const AvizareGraweSchemaCreateSchema = z.object({
     repair_authorisation_number: z.string(),
 })
 
-export const  AvizareGraweSchemaUpdateSchema = AvizareGraweSchemaCreateSchema;
+export const  AvizareGraweUpdateSchema = AvizareGraweCreateSchema;

@@ -1,8 +1,8 @@
 import {z} from 'zod'
 import * as schemas from '@/entities/templates/avizare-dallbog/schemas/avizare-dallbog-schema';
 
-export type AvizareDallbogCreateSchema = z.infer<typeof schemas.avizareDallbogCreateSchema>
-export type AvizareDallbogUpdateSchema = z.infer<typeof schemas.avizareDallbogUpdateSchema>
+export type AvizareDallbogCreateSchema = z.infer<typeof schemas.AvizareDallbogCreateSchema>
+export type AvizareDallbogUpdateSchema = z.infer<typeof schemas.AvizareDallbogUpdateSchema>
 
 export type AvizareDallbog = {
     id: string;

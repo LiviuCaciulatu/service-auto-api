@@ -1,6 +1,6 @@
 import {z} from "zod";
 
-export const avizareDallbogCreateSchema = z.object({
+export const AvizareDallbogCreateSchema = z.object({
     client_id: z.uuidv4(),
     existing_damaged_vehicle: z.string(),
     claim_date: z.string(),
@@ -54,4 +54,4 @@ export const avizareDallbogCreateSchema = z.object({
     signature: z.string(),
 });
 
-export const avizareDallbogUpdateSchema = avizareDallbogCreateSchema;
+export const AvizareDallbogUpdateSchema = AvizareDallbogCreateSchema;
