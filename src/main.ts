@@ -24,6 +24,12 @@ import avizareGroupamaController from "@/entities/templates/avizare-groupama/con
 import avizareHellasDirectController from "@/entities/templates/avizare-hellas-direct/controllers/avizare-hellas-direct-controller";
 import contractMandatController from "@/entities/templates/contract-mandat/controllers/contract-mandat-controller";
 import imputernicireController from "@/entities/templates/imputernicire/controllers/imputernicire-controller";
+import gdprAsiromController from "@/entities/templates/gdpr-asirom/controllers/gdpr-asirom-controller";
+import gdprAxeriaController from "@/entities/templates/gdpr-axeria/controllers/gdpr-axeria-controller";
+import gdprGeneraliController from "@/entities/templates/gdpr-generali/controllers/gdpr-generali-controller";
+import gdprGraweController from "@/entities/templates/gdpr-grawe/controllers/gdpr-grawe-controller";
+import gdprGroupamaController from "@/entities/templates/gdpr-groupama/controllers/gdpr-groupama-controller";
+import gdprHellasDirectController from "@/entities/templates/gdpr-hellas-direct/controllers/gdpr-hellas-direct-controller";
 
 const app = express();
 
@@ -71,6 +77,12 @@ app.use("/avizareGroupama", avizareGroupamaController);
 app.use("/avizareHellasDirect", avizareHellasDirectController);
 app.use("/contractMandat", contractMandatController);
 app.use("/imputernicire", imputernicireController);
+app.use("/gdprAsirom", gdprAsiromController);
+app.use("/gdprAxeria", gdprAxeriaController);
+app.use("/gdprGenerali", gdprGeneraliController);
+app.use("/gdprGrawe", gdprGraweController);
+app.use("/gdprGroupama", gdprGroupamaController);
+app.use("/gdprHellasDirect", gdprHellasDirectController);
 
 app.use((_req, res)=>{
     res.status(404).json({message: "not found", code: 404})
