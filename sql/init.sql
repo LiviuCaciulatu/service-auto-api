@@ -323,9 +323,9 @@ CREATE TABLE IF NOT EXISTS avizare_allianz_tiriac
     casco VARCHAR(50),
     rcs VARCHAR(50),
     date VARCHAR(20),
-    signature TEXT
+    signature TEXT,
     created_at TIMESTAMPTZ DEFAULT NOW()
-)
+);
 
 ALTER TABLE avizare_allianz_tiriac
 DROP CONSTRAINT IF EXISTS fk_avizare_allianz_tiriac_client;
@@ -396,7 +396,7 @@ CREATE TABLE IF NOT EXISTS avizare_asirom
     insurance_declaration BOOLEAN DEFAULT FALSE,
     signature VARCHAR(255),
     created_at TIMESTAMPTZ DEFAULT NOW()
-)
+);
 
 ALTER TABLE avizare_asirom
 DROP CONSTRAINT IF EXISTS fk_avizare_asirom_client;
@@ -468,7 +468,7 @@ CREATE TABLE IF NOT EXISTS avizare_omniasig
     insurance_declaration BOOLEAN DEFAULT FALSE,
     signature VARCHAR(255),
     created_at TIMESTAMPTZ DEFAULT NOW()
-    )
+    );
 
 ALTER TABLE avizare_omniasig
 DROP CONSTRAINT IF EXISTS fk_avizare_omniasig_client;
@@ -507,7 +507,7 @@ CREATE TABLE IF NOT EXISTS avizare_generali
     date VARCHAR(20),
     signature VARCHAR(255),
     created_at TIMESTAMPTZ DEFAULT NOW()
-)
+);
 
 ALTER TABLE avizare_generali
 DROP CONSTRAINT IF EXISTS fk_avizare_generali_client;
@@ -613,8 +613,8 @@ CREATE TABLE IF NOT EXISTS avizare_axeria (
     incident_responsible_rca_validity_end_date VARCHAR(20),
     claim_date VARCHAR(20),
     signature VARCHAR(255),
-    created_at VARCHAR(40)
-)
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
 
 ALTER TABLE avizare_axeria
 DROP CONSTRAINT IF EXISTS fk_avizare_axeria_client;
@@ -676,7 +676,7 @@ CREATE TABLE IF NOT EXISTS avizare_dallbog(
     past_damages VARCHAR(500),
     diagram VARCHAR(255),
     signature VARCHAR(255)
-)
+);
 
 ALTER TABLE avizare_dallbog
 DROP CONSTRAINT IF EXISTS fk_avizare_dallbog_client;
@@ -736,10 +736,10 @@ CREATE TABLE IF NOT EXISTS avizare_eazy(
     at_fault_person_phone VARCHAR(30),
     at_fault_person_email VARCHAR(150),
     at_fault_vehicle_registration_number VARCHAR(15),
-    other_details VARCHAR(1000),S
+    other_details VARCHAR(1000),
     claim_date VARCHAR(20),
     signature VARCHAR(255)
-)
+);
 
 ALTER TABLE avizare_eazy
 DROP CONSTRAINT IF EXISTS fk_avizare_eazy_client;
@@ -829,7 +829,7 @@ CREATE TABLE IF NOT EXISTS avizare_grawe(
     other_policy_valid_to VARCHAR(20),
     repair_authorisation_series VARCHAR(20),
     repair_authorisation_number VARCHAR(40)
-)
+);
 
 ALTER TABLE avizare_grawe
 DROP CONSTRAINT IF EXISTS fk_avizare_grawe_client;
@@ -885,7 +885,7 @@ CREATE TABLE IF NOT EXISTS avizare_groupama (
     agree_pre_reparir_payment BOOLEAN,
     claim_date VARCHAR(20),
     signature VARCHAR(255)
-)
+);
 
 ALTER TABLE avizare_groupama
 DROP CONSTRAINT IF EXISTS fk_avizare_groupama_client;
@@ -973,8 +973,8 @@ CREATE TABLE IF NOT EXISTS avizare_hellas_direct (
     other_policy_valid_to VARCHAR(20),
     repair_authorisation_series VARCHAR(20),
     repair_authorisation_number VARCHAR(40),
-    created_at VARCHAR(40)
-)
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
 
 ALTER TABLE avizare_hellas_direct
 DROP CONSTRAINT IF EXISTS fk_avizare_hellas_direct_client;
@@ -985,7 +985,7 @@ FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE;
 
 CREATE TABLE IF NOT EXISTS contract_mandat (
     id VARCHAR(50) PRIMARY KEY,
-    client_id VARCHAR(50),
+    client_id UUID NOT NULL,
     principal_name VARCHAR(120),
     principal_address VARCHAR(255),
     principal_cnp VARCHAR(13),
@@ -1005,8 +1005,8 @@ CREATE TABLE IF NOT EXISTS contract_mandat (
     contract_date VARCHAR(20),
     principal_signature VARCHAR(255),
     agent_signature VARCHAR(255),
-    created_at VARCHAR(40)
-)
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
 
 ALTER TABLE contract_mandat
 DROP CONSTRAINT IF EXISTS fk_contract_mandat_client;
@@ -1018,7 +1018,6 @@ FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE;
 CREATE TABLE IF NOT EXISTS imputernicire(
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     client_id UUID NOT NULL,
-    client_id VARCHAR(255),
     authorization_number VARCHAR(255),
     authorization_date VARCHAR(255),
     company_name VARCHAR(255),
@@ -1039,7 +1038,7 @@ CREATE TABLE IF NOT EXISTS imputernicire(
     vehicle_vin VARCHAR(255),
     vehicle_registration_number VARCHAR(255),
     principal_signature VARCHAR(255)
-)
+);
 
 ALTER TABLE imputernicire
 DROP CONSTRAINT IF EXISTS fk_imputernicire_client;
@@ -1053,8 +1052,8 @@ CREATE TABLE IF NOT EXISTS gdpr_asirom(
     client_id UUID NOT NULL,
     client_name VARCHAR(50),
     signature VARCHAR(255),
-    created_at VARCHAR(40)
-)
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
 
 ALTER TABLE gdpr_asirom
 DROP CONSTRAINT IF EXISTS fk_gdpr_asirom_client;
@@ -1070,8 +1069,8 @@ CREATE TABLE IF NOT EXISTS gdpr_axeria(
     client_id_series VARCHAR(5),
     client_id_number VARCHAR(20),
     signature VARCHAR(255),
-    created_at VARCHAR(40)
-    )
+    created_at TIMESTAMPTZ DEFAULT NOW()
+    );
 
 ALTER TABLE gdpr_axeria
 DROP CONSTRAINT IF EXISTS fk_gdpr_axeria_client;
@@ -1085,8 +1084,8 @@ CREATE TABLE IF NOT EXISTS gdpr_grawe(
     client_id UUID NOT NULL,
     client_name VARCHAR(50),
     signature VARCHAR(255),
-    created_at VARCHAR(40)
-    )
+    created_at TIMESTAMPTZ DEFAULT NOW()
+    );
 
 ALTER TABLE gdpr_grawe
 DROP CONSTRAINT IF EXISTS fk_gdpr_grawe_client;
@@ -1101,8 +1100,8 @@ CREATE TABLE IF NOT EXISTS gdpr_groupama(
     client_name VARCHAR(50),
     capacity VARCHAR(100),
     signature VARCHAR(255),
-    created_at VARCHAR(40)
-    )
+    created_at TIMESTAMPTZ DEFAULT NOW()
+    );
 
 ALTER TABLE gdpr_groupama
 DROP CONSTRAINT IF EXISTS fk_gdpr_groupama_client;
@@ -1117,8 +1116,8 @@ CREATE TABLE IF NOT EXISTS gdpr_hellas_direct(
     client_name VARCHAR(50),
     signature VARCHAR(255),
     gdpr_date VARCHAR(15),
-    created_at VARCHAR(40)
-    )
+    created_at TIMESTAMPTZ DEFAULT NOW()
+    );
 
 ALTER TABLE gdpr_hellas_direct
 DROP CONSTRAINT IF EXISTS fk_gdpr_hellas_direct_client;
@@ -1132,8 +1131,8 @@ CREATE TABLE IF NOT EXISTS gdpr_generali(
     client_id UUID NOT NULL,
     client_name VARCHAR(50),
     signature VARCHAR(255),
-    created_at VARCHAR(40)
-    )
+    created_at TIMESTAMPTZ DEFAULT NOW()
+    );
 
 ALTER TABLE gdpr_generali
 DROP CONSTRAINT IF EXISTS fk_gdpr_generali_client;
@@ -1141,3 +1140,6 @@ DROP CONSTRAINT IF EXISTS fk_gdpr_generali_client;
 ALTER TABLE gdpr_generali
 ADD CONSTRAINT fk_gdpr_generali_client
 FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE;
+
+ALTER TABLE car_documents
+ADD COLUMN IF NOT EXISTS expiration_date VARCHAR(15);

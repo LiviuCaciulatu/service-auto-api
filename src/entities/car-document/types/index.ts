@@ -41,5 +41,6 @@ export type CarDocument = {
     numar_certificat: string;
     property_c_2_equals_c_1: boolean;
     property_c_3_equals_c_1: boolean;
+    expiration_date: string;
     created_at: string;
 }
