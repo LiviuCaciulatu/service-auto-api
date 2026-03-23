@@ -37,7 +37,11 @@ export const carDocumentCreateSchema = z.object({
     numar_certificat: z.string().min(1),
     property_c_2_equals_c_1: z.boolean(),
     property_c_3_equals_c_1: z.boolean(),
-    expiration_date: z.string().min(1)
+    expiration_date: z.string().min(1),
+    contact_first_name: z.string().min(1),
+    contact_last_name: z.string().min(1),
+    contact_email: z.string().min(1),
+    contact_phone: z.string().min(1),
 })
 
 // defineste schema pentru updatata pentru car document

@@ -1143,3 +1143,15 @@ FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE;
 
 ALTER TABLE car_documents
 ADD COLUMN IF NOT EXISTS expiration_date VARCHAR(15);
+
+ALTER TABLE car_documents
+ADD COLUMN IF NOT EXISTS contact_first_name VARCHAR(120);
+
+ALTER TABLE car_documents
+ADD COLUMN IF NOT EXISTS contact_last_name VARCHAR(120);
+
+ALTER TABLE car_documents
+ADD COLUMN IF NOT EXISTS contact_email VARCHAR(150);
+
+ALTER TABLE car_documents
+ADD COLUMN IF NOT EXISTS contact_phone VARCHAR(30);

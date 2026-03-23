@@ -42,5 +42,9 @@ export type CarDocument = {
     property_c_2_equals_c_1: boolean;
     property_c_3_equals_c_1: boolean;
     expiration_date: string;
+    contact_first_name: string;
+    contact_last_name: string;
+    contact_email: string;
+    contact_phone: string;
     created_at: string;
 }
