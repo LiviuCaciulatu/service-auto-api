@@ -3,11 +3,14 @@ import "@/config/env";
 import express from "express";
 import cors from "cors";
 
+import {authenticateRequest} from "@/config/auth-middleware";
 import clientController from "@/entities/client/controllers/client-controller";
 import fileUploadController from "@/entities/file-upload/controllers/file-upload-controller";
 import carDocumentController from "@/entities/car-document/controllers/car-document-controller";
 import driverLicenseController from "@/entities/driver-license/controllers/driver-license-controller"
 import {errorMiddleware} from "@/config/error-middleware";
+import authController from "@/entities/auth/controllers/auth-controller";
+import userController from "@/entities/auth/controllers/user-controller";
 import compensationClaimController from "@/entities/compensation-claim/controllers/compensation-claim-controller";
 import contractCesiuneCreantaController from "@/entities/contract-cesiune-creanta/controllers/contract-cesiune-creanta-controller";
 import contractInlocuireTemporaraController from "@/entities/contract-inlocuire-temporara/controllers/contract-inlocuire-temporara-controller";
@@ -38,9 +41,41 @@ const allowedOrigins = [
     "https://www.service-app.cleancodeit.com"
 ];
 
+const protectedRoutes = [
+    "/auth/validate",
+    "/auth/social/link",
+    "/users",
+    "/clients",
+    "/files",
+    "/driverLicenses",
+    "/carDocuments",
+    "/compensationClaims",
+    "/contractCesiuneCreanta",
+    "/contractInlocuireTemporara",
+    "/contractReparatiiAuto",
+    "/avizareAllianzTiriac",
+    "/avizareAsirom",
+    "/avizareOmniasig",
+    "/avizareGenerali",
+    "/avizareGrawe",
+    "/avizareAxeria",
+    "/avizareDallbog",
+    "/avizareEazy",
+    "/avizareGroupama",
+    "/avizareHellasDirect",
+    "/contractMandat",
+    "/imputernicire",
+    "/gdprAsirom",
+    "/gdprAxeria",
+    "/gdprGenerali",
+    "/gdprGrawe",
+    "/gdprGroupama",
+    "/gdprHellasDirect"
+];
+
 app.use(cors({
     origin: allowedOrigins,
-    methods: ["GET","POST","PUT","DELETE","OPTIONS"],
+    methods: ["GET","POST","PATCH","PUT","DELETE","OPTIONS"],
     credentials: true
 }));
 
@@ -57,6 +92,10 @@ app.get("/health", (_req, res) => {
     res.json({ status: "UP" });
 });
 
+app.use(protectedRoutes, authenticateRequest);
+
+app.use("/auth", authController);
+app.use("/users", userController);
 app.use("/clients", clientController);
 app.use("/files", fileUploadController);
 app.use("/driverLicenses", driverLicenseController);
